@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Diagnóstico ICHEA / INEA - Secundaria</title>
+    <title>Plataforma de Estudio y Diagnóstico ICHEA / INEA - Secundaria</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -39,12 +39,12 @@
                     <i class="fa-solid fa-graduation-cap text-2xl text-amber-400"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg md:text-xl tracking-tight">Simulador ICHEA / INEA</h1>
-                    <p class="text-xs text-slate-300">Diagnóstico de Secundaria - Chihuahua</p>
+                    <h1 class="font-bold text-lg md:text-xl tracking-tight">Plataforma ICHEA / INEA</h1>
+                    <p class="text-xs text-slate-300">Estudio y Diagnóstico de Secundaria</p>
                 </div>
             </div>
-            <div id="quiz-badge" class="hidden bg-sky-500/30 text-sky-200 border border-sky-400/30 px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm">
-                <i class="fa-solid fa-book-open mr-1.5"></i> <span id="subject-badge-text">Matemáticas</span>
+            <div id="user-badge" class="hidden bg-white/10 text-slate-100 border border-white/20 px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm">
+                <i class="fa-solid fa-user mr-1.5 text-amber-400"></i> <span id="user-badge-name">Estudiante</span>
             </div>
         </div>
     </header>
@@ -52,66 +52,106 @@
     <!-- Main Content Container -->
     <main class="max-w-4xl mx-auto w-full px-4 py-6 flex-grow">
 
-        <!-- SCREEN 1: Welcome & Setup -->
-        <div id="welcome-screen" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 transition-all">
+        <!-- SCREEN 1: Welcome & Setup (Nombre + Selección de Modo) -->
+        <div id="welcome-screen" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 transition-all space-y-8">
+            
             <div class="text-center max-w-2xl mx-auto">
                 <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sky-100 text-sky-600 mb-4">
-                    <i class="fa-solid fa-clipboard-check text-2xl"></i>
+                    <i class="fa-solid fa-user-graduate text-2xl"></i>
                 </div>
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Examen de Diagnóstico de Secundaria</h2>
-                <p class="text-slate-600 text-sm md:text-base mb-6 leading-relaxed">
-                    Diseñado especialmente para evaluar los conocimientos necesarios para acreditar la educación secundaria en el <strong>ICHEA (Instituto Chihuahuense para la Educación de los Adultos / INEA)</strong>.
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">¡Hola! Prepara tu Secundaria ICHEA</h2>
+                <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+                    Escribe tu nombre para personalizar tu avance y selecciona el modo de estudio que prefieras hoy.
                 </p>
+            </div>
 
-                <!-- Information Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left mb-8">
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <div class="flex items-center text-sky-600 font-semibold text-sm mb-1">
-                            <i class="fa-solid fa-list-check mr-2"></i> 20 Preguntas
+            <!-- Campo de Nombre -->
+            <div class="max-w-md mx-auto bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
+                <label for="student-name-input" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    <i class="fa-solid fa-id-card mr-1 text-sky-600"></i> Nombre del Estudiante:
+                </label>
+                <div class="relative">
+                    <input type="text" id="student-name-input" placeholder="Ej. Ana Meléndez" 
+                        class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none text-slate-800 text-sm font-medium">
+                    <i class="fa-solid fa-user text-slate-400 absolute left-3.5 top-3.5"></i>
+                </div>
+                <p class="text-[11px] text-slate-500">Este nombre se guardará en tu dispositivo para registrar tus resultados.</p>
+            </div>
+
+            <!-- Selección de Modo -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                
+                <!-- Tarjeta Modo Práctica -->
+                <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-200 hover:border-emerald-400 p-6 rounded-2xl flex flex-col justify-between transition-all shadow-sm">
+                    <div class="space-y-3">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-xl shadow-md">
+                            <i class="fa-solid fa-book-open"></i>
                         </div>
-                        <p class="text-xs text-slate-500">Reactivos con explicación detallada paso a paso.</p>
+                        <h3 class="text-lg font-bold text-emerald-950">Modo Práctica / Estudio</h3>
+                        <p class="text-xs text-emerald-800 leading-relaxed">
+                            Repasa preguntas con <strong>explicación inmediata paso a paso</strong> al responder cada reactivo. Sin cronómetro ni presión.
+                        </p>
                     </div>
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <div class="flex items-center text-amber-600 font-semibold text-sm mb-1">
-                            <i class="fa-solid fa-layer-group mr-2"></i> 4 Materias
-                        </div>
-                        <p class="text-xs text-slate-500">Matemáticas, Lengua, Ciencias y Ciencias Sociales.</p>
-                    </div>
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <div class="flex items-center text-emerald-600 font-semibold text-sm mb-1">
-                            <i class="fa-solid fa-chart-pie mr-2"></i> Reporte Final
-                        </div>
-                        <p class="text-xs text-slate-500">Análisis inmediato de fortalezas y temas a reforzar.</p>
+                    
+                    <div class="mt-6 space-y-2">
+                        <label class="block text-[11px] font-bold text-emerald-900 uppercase">Materia a estudiar:</label>
+                        <select id="practice-subject-select" class="w-full p-2.5 text-xs rounded-xl border border-emerald-300 bg-white font-medium text-slate-700 outline-none">
+                            <option value="Todas">Todas las materias combinadas</option>
+                            <option value="Matemáticas">Matemáticas</option>
+                            <option value="Lengua y Comunicación">Lengua y Comunicación</option>
+                            <option value="Ciencias Naturales">Ciencias Naturales</option>
+                            <option value="Ciencias Sociales">Ciencias Sociales</option>
+                        </select>
+                        <button id="start-practice-btn" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl text-sm shadow-md transition-all">
+                            <i class="fa-solid fa-lightbulb mr-1.5"></i> Iniciar Modo Práctica
+                        </button>
                     </div>
                 </div>
 
-                <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-left mb-8 flex items-start space-x-3">
-                    <i class="fa-solid fa-circle-info text-amber-600 text-lg mt-0.5"></i>
-                    <p class="text-xs text-amber-800 leading-relaxed">
-                        <strong>Nota importante:</strong> No te preocupes si no recuerdas algunas respuestas. Este examen es de <strong>diagnóstico</strong> para saber desde dónde empezar a repasar.
-                    </p>
+                <!-- Tarjeta Modo Examen -->
+                <div class="bg-gradient-to-br from-sky-50 to-indigo-50 border-2 border-sky-200 hover:border-sky-400 p-6 rounded-2xl flex flex-col justify-between transition-all shadow-sm">
+                    <div class="space-y-3">
+                        <div class="w-12 h-12 rounded-xl bg-sky-600 text-white flex items-center justify-center text-xl shadow-md">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-sky-950">Modo Examen de Diagnóstico</h3>
+                        <p class="text-xs text-sky-800 leading-relaxed">
+                            Ponte a prueba con cronómetro activo. Al finalizar se genera tu reporte y <strong>se envían tus resultados a la hoja de registro</strong>.
+                        </p>
+                    </div>
+
+                    <div class="mt-6 space-y-2">
+                        <label class="block text-[11px] font-bold text-sky-900 uppercase">Tipo de Examen:</label>
+                        <select id="exam-type-select" class="w-full p-2.5 text-xs rounded-xl border border-sky-300 bg-white font-medium text-slate-700 outline-none">
+                            <option value="Global">Examen Global Completo (20 Preguntas)</option>
+                            <option value="Matemáticas">Examen Corto - Matemáticas</option>
+                            <option value="Lengua y Comunicación">Examen Corto - Lengua y Comunicación</option>
+                            <option value="Ciencias Naturales">Examen Corto - Ciencias Naturales</option>
+                            <option value="Ciencias Sociales">Examen Corto - Ciencias Sociales</option>
+                        </select>
+                        <button id="start-exam-btn" class="w-full mt-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 rounded-xl text-sm shadow-md transition-all">
+                            <i class="fa-solid fa-play mr-1.5"></i> Comenzar Examen
+                        </button>
+                    </div>
                 </div>
 
-                <button id="start-btn" class="w-full sm:w-auto bg-sky-600 hover:bg-sky-700 text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg shadow-sky-600/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
-                    <i class="fa-solid fa-play mr-2"></i> Comenzar Examen de Diagnóstico
-                </button>
             </div>
         </div>
 
-        <!-- SCREEN 2: Active Quiz Screen -->
+        <!-- SCREEN 2: Active Quiz Screen (Preguntas) -->
         <div id="quiz-screen" class="hidden space-y-6">
             <!-- Progress Bar Card -->
             <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="w-full">
                     <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1.5">
-                        <span>Progreso General</span>
+                        <span id="quiz-mode-title">Modo Examen</span>
                         <span id="progress-text">Pregunta 1 de 20</span>
                     </div>
                     <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
                         <div id="progress-bar" class="bg-sky-600 h-2.5 rounded-full transition-all duration-300 w-[5%]"></div>
                     </div>
                 </div>
-                <div class="flex items-center justify-between w-full md:w-auto space-x-4 border-t md:border-t-0 pt-2 md:pt-0 border-slate-100">
+                <div id="timer-box" class="flex items-center justify-between w-full md:w-auto space-x-4 border-t md:border-t-0 pt-2 md:pt-0 border-slate-100">
                     <div class="text-slate-500 text-xs flex items-center">
                         <i class="fa-regular fa-clock mr-1.5 text-slate-400"></i>
                         <span id="timer-display" class="font-mono font-bold text-slate-700">00:00</span>
@@ -121,7 +161,6 @@
 
             <!-- Question Display Card -->
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-6">
-                <!-- Subject Badge & Topic -->
                 <div class="flex items-center justify-between">
                     <span id="question-subject" class="bg-sky-100 text-sky-800 text-xs font-semibold px-3 py-1 rounded-full">
                         Matemáticas
@@ -129,23 +168,19 @@
                     <span id="question-id-tag" class="text-xs text-slate-400 font-mono">Reactivo #1</span>
                 </div>
 
-                <!-- Question Prompt -->
                 <h3 id="question-text" class="text-base md:text-lg font-semibold text-slate-900 leading-relaxed">
                     ¿Cargando pregunta...?
                 </h3>
 
-                <!-- Answer Options -->
                 <div id="options-container" class="space-y-3">
-                    <!-- Options populated by JS -->
+                    <!-- Populated by JS -->
                 </div>
 
-                <!-- Immediate Feedback Panel -->
                 <div id="feedback-box" class="hidden p-4 rounded-xl text-sm space-y-2 border">
                     <div id="feedback-title" class="font-bold flex items-center gap-2"></div>
                     <p id="feedback-text" class="text-slate-700 text-xs md:text-sm leading-relaxed"></p>
                 </div>
 
-                <!-- Navigation Controls -->
                 <div class="flex justify-between items-center pt-4 border-t border-slate-100">
                     <button id="prev-btn" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-600 font-medium text-sm hover:bg-slate-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
                         <i class="fa-solid fa-arrow-left mr-1.5"></i> Anterior
@@ -166,10 +201,9 @@
                 
                 <div>
                     <h2 class="text-2xl font-bold text-slate-900">Resultado del Diagnóstico</h2>
-                    <p class="text-slate-500 text-sm mt-1">Aquí está el desglose del desempeño para ICHEA Secundaria.</p>
+                    <p class="text-slate-500 text-sm mt-1">Estudiante: <strong id="result-student-name" class="text-slate-800">---</strong></p>
                 </div>
 
-                <!-- Main Score Board -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto">
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
                         <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Aciertos Totales</span>
@@ -180,12 +214,11 @@
                         <div class="text-2xl font-bold text-sky-600 mt-1" id="percentage-text">0%</div>
                     </div>
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Estado Sugerido</span>
+                        <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Estado</span>
                         <div class="text-sm font-bold mt-2 text-emerald-600" id="status-badge">Completado</div>
                     </div>
                 </div>
 
-                <!-- Subject Breakdown -->
                 <div class="text-left space-y-3 pt-4 border-t border-slate-100">
                     <h4 class="font-bold text-slate-800 text-sm flex items-center">
                         <i class="fa-solid fa-chart-column mr-2 text-sky-600"></i> Desempeño por Materia:
@@ -195,18 +228,16 @@
                     </div>
                 </div>
 
-                <!-- Recommendation Box -->
                 <div id="recommendation-box" class="bg-sky-50 border border-sky-200 p-4 rounded-xl text-left text-sm text-sky-900 space-y-1">
                     <div class="font-bold text-sky-950 flex items-center">
-                        <i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i> Plan de Estudio Recomendado:
+                        <i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i> Recomendación de Estudio:
                     </div>
                     <p id="recommendation-text" class="text-xs md:text-sm text-sky-800 leading-relaxed"></p>
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="flex flex-wrap justify-center gap-3 pt-4">
                     <button id="restart-btn" class="bg-sky-600 hover:bg-sky-700 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md transition-all text-sm">
-                        <i class="fa-solid fa-rotate-right mr-1.5"></i> Reiniciar Examen
+                        <i class="fa-solid fa-house mr-1.5"></i> Volver al Menú Principal
                     </button>
                     <button id="review-btn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-6 py-2.5 rounded-xl border border-slate-200 transition-all text-sm">
                         <i class="fa-solid fa-eye mr-1.5"></i> Repasar Respuestas
@@ -217,16 +248,15 @@
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
         <div class="max-w-4xl mx-auto px-4">
-            <p>Herramienta de Diagnóstico Educativo Independiente — Basada en contenidos generales de Educación Básica Secundaria para INEA / ICHEA.</p>
+            <p>Plataforma de Estudio Independiente para Secundaria ICHEA / INEA.</p>
         </div>
     </footer>
 
     <script>
-        // --- DATASET OF QUESTIONS (20 REACTIVOS) ---
-        const questionsData = [
+        // --- DATASET DE PREGUNTAS COMPLETO ---
+        const allQuestions = [
             // MATEMÁTICAS (5 Preguntas)
             {
                 subject: "Matemáticas",
@@ -264,13 +294,13 @@
                 explanation: "Restamos 5 a ambos lados: 2x = 15 - 5 => 2x = 10. Luego dividimos entre 2: x = 10 / 2 = 5."
             },
 
-            // LENGUA Y COMUNICACIÓN / ESPAÑOL (5 Preguntas)
+            // LENGUA Y COMUNICACIÓN (5 Preguntas)
             {
                 subject: "Lengua y Comunicación",
                 question: "Identifica la palabra que contiene un error ortográfico en la siguiente oración: 'Ella tubo que ir a la farmacia a comprar medicina.'",
                 options: ["farmacia", "medicina", "comprar", "tubo"],
                 answer: 3,
-                explanation: "'Tubo' del verbo tener se escribe con **'v'** (**tuvo**). La palabra 'tubo' con 'b' se refiere a un cilindro hueco."
+                explanation: "'Tubo' del verbo tener se escribe con 'v' (tuvo). La palabra 'tubo' con 'b' se refiere a un cilindro hueco."
             },
             {
                 subject: "Lengua y Comunicación",
@@ -301,7 +331,7 @@
                 explanation: "Efímero significa algo que dura muy poco tiempo; por lo tanto, su antónimo u opuesto es 'Duradero'."
             },
 
-            // CIENCIAS NATURALES (BIOLOGÍA Y FÍSICA) (5 Preguntas)
+            // CIENCIAS NATURALES (5 Preguntas)
             {
                 subject: "Ciencias Naturales",
                 question: "¿Cuál es la unidad estructural y funcional básica de todos los seres vivos?",
@@ -338,7 +368,7 @@
                 explanation: "Los líquidos tienen volumen constante pero sus moléculas se desplazan adaptablemente a la forma de su recipiente."
             },
 
-            // CIENCIAS SOCIALES e HISTORIA (5 Preguntas)
+            // CIENCIAS SOCIALES (5 Preguntas)
             {
                 subject: "Ciencias Sociales",
                 question: "¿En qué fecha se conmemora el inicio de la Independencia de México?",
@@ -376,33 +406,38 @@
             }
         ];
 
-        // --- CONFIGURACIÓN DE TU BACKEND EN GOOGLE SHEETS ---
-        // IMPORTANTE: Reemplaza esta URL con la URL de despliegue Web App de Google Apps Script (debe terminar en /exec)
+        // --- CONFIGURACIÓN DE TU GOOGLE APPS SCRIPT ---
         const URL_MI_API = "https://script.google.com/macros/s/AKfycbyerTsEwrLLAqX_OHtAPZnQcOu2nivb4DLAXeDI-qutZ47ug0-kT0lVwVZgD2aN9Fs/exec";
 
-        // --- APP STATE CONTROL ---
+        // --- ESTADO DE LA APLICACIÓN ---
+        let currentQuestions = [];
         let currentQuestionIndex = 0;
-        let userAnswers = new Array(questionsData.length).fill(null);
+        let userAnswers = [];
         let timerInterval = null;
         let secondsElapsed = 0;
+        let activeMode = "exam"; // "practice" o "exam"
         let isReviewMode = false;
+        let studentName = "";
 
-        // --- DOM ELEMENTS ---
+        // --- ELEMENTOS DEL DOM ---
         const welcomeScreen = document.getElementById("welcome-screen");
         const quizScreen = document.getElementById("quiz-screen");
         const resultsScreen = document.getElementById("results-screen");
-        
-        const startBtn = document.getElementById("start-btn");
-        const prevBtn = document.getElementById("prev-btn");
-        const nextBtn = document.getElementById("next-btn");
-        const restartBtn = document.getElementById("restart-btn");
-        const reviewBtn = document.getElementById("review-btn");
 
+        const studentNameInput = document.getElementById("student-name-input");
+        const userBadge = document.getElementById("user-badge");
+        const userBadgeName = document.getElementById("user-badge-name");
+
+        const startPracticeBtn = document.getElementById("start-practice-btn");
+        const startExamBtn = document.getElementById("start-exam-btn");
+        const practiceSubjectSelect = document.getElementById("practice-subject-select");
+        const examTypeSelect = document.getElementById("exam-type-select");
+
+        const quizModeTitle = document.getElementById("quiz-mode-title");
+        const timerBox = document.getElementById("timer-box");
+        const timerDisplay = document.getElementById("timer-display");
         const progressText = document.getElementById("progress-text");
         const progressBar = document.getElementById("progress-bar");
-        const timerDisplay = document.getElementById("timer-display");
-        const quizBadge = document.getElementById("quiz-badge");
-        const subjectBadgeText = document.getElementById("subject-badge-text");
 
         const questionSubject = document.getElementById("question-subject");
         const questionIdTag = document.getElementById("question-id-tag");
@@ -412,30 +447,73 @@
         const feedbackTitle = document.getElementById("feedback-title");
         const feedbackText = document.getElementById("feedback-text");
 
-        // --- EVENT LISTENERS ---
-        startBtn.addEventListener("click", startQuiz);
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        const restartBtn = document.getElementById("restart-btn");
+        const reviewBtn = document.getElementById("review-btn");
+
+        // --- INICIALIZACIÓN Y EVENTOS ---
+        window.addEventListener("DOMContentLoaded", () => {
+            const savedName = localStorage.getItem("ichea_student_name");
+            if (savedName) {
+                studentNameInput.value = savedName;
+            }
+        });
+
+        startPracticeBtn.addEventListener("click", () => initQuiz("practice"));
+        startExamBtn.addEventListener("click", () => initQuiz("exam"));
         prevBtn.addEventListener("click", goToPrevQuestion);
         nextBtn.addEventListener("click", goToNextQuestion);
-        restartBtn.addEventListener("click", resetQuiz);
+        restartBtn.addEventListener("click", returnToHome);
         reviewBtn.addEventListener("click", enterReviewMode);
 
-        function startQuiz() {
+        function initQuiz(mode) {
+            const inputVal = studentNameInput.value.trim();
+            studentName = inputVal !== "" ? inputVal : "Estudiante";
+            localStorage.setItem("ichea_student_name", studentName);
+
+            userBadgeName.textContent = studentName;
+            userBadge.classList.remove("hidden");
+
+            activeMode = mode;
+            isReviewMode = false;
+
+            // Filtrar preguntas según la materia seleccionada
+            if (activeMode === "practice") {
+                const sub = practiceSubjectSelect.value;
+                if (sub === "Todas") {
+                    currentQuestions = [...allQuestions];
+                } else {
+                    currentQuestions = allQuestions.filter(q => q.subject === sub);
+                }
+                quizModeTitle.textContent = "Modo Práctica / Estudio";
+                timerBox.classList.add("hidden");
+            } else { // Modo Examen
+                const examType = examTypeSelect.value;
+                if (examType === "Global") {
+                    currentQuestions = [...allQuestions];
+                } else {
+                    currentQuestions = allQuestions.filter(q => q.subject === examType);
+                }
+                quizModeTitle.textContent = "Modo Examen";
+                timerBox.classList.remove("hidden");
+                startTimer();
+            }
+
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuestions.length).fill(null);
+
             welcomeScreen.classList.add("hidden");
             resultsScreen.classList.add("hidden");
             quizScreen.classList.remove("hidden");
-            quizBadge.classList.remove("hidden");
 
-            currentQuestionIndex = 0;
-            userAnswers.fill(null);
-            secondsElapsed = 0;
-            isReviewMode = false;
-
-            startTimer();
             renderQuestion();
         }
 
         function startTimer() {
             clearInterval(timerInterval);
+            secondsElapsed = 0;
+            timerDisplay.textContent = "00:00";
             timerInterval = setInterval(() => {
                 secondsElapsed++;
                 const mins = Math.floor(secondsElapsed / 60).toString().padStart(2, '0');
@@ -445,14 +523,13 @@
         }
 
         function renderQuestion() {
-            const q = questionsData[currentQuestionIndex];
-            const total = questionsData.length;
+            const q = currentQuestions[currentQuestionIndex];
+            const total = currentQuestions.length;
 
             progressText.textContent = `Pregunta ${currentQuestionIndex + 1} de ${total}`;
             progressBar.style.width = `${((currentQuestionIndex + 1) / total) * 100}%`;
 
             questionSubject.textContent = q.subject;
-            subjectBadgeText.textContent = q.subject;
             questionIdTag.textContent = `Reactivo #${currentQuestionIndex + 1}`;
             questionText.textContent = q.question;
 
@@ -465,14 +542,14 @@
                 optBtn.className = "option-card w-full text-left p-4 rounded-xl border border-slate-200 text-slate-800 text-sm md:text-base flex items-center justify-between group";
 
                 let iconMarkup = `<span class="w-7 h-7 rounded-full border border-slate-300 flex items-center justify-center text-xs font-semibold text-slate-500 group-hover:border-sky-500 group-hover:text-sky-600 transition-colors">${String.fromCharCode(65 + index)}</span>`;
-                
+
                 if (selectedOpt === index) {
                     optBtn.classList.add("option-selected");
                     iconMarkup = `<span class="w-7 h-7 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-bold"><i class="fa-solid fa-check"></i></span>`;
                 }
 
-                if (isReviewMode) {
-                    optBtn.disabled = true;
+                // En modo práctica o revisión, resaltar colores inmediatamente
+                if (isReviewMode || (activeMode === "practice" && selectedOpt !== null)) {
                     if (index === q.answer) {
                         optBtn.className = "w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-950 font-medium text-sm md:text-base flex items-center justify-between";
                         iconMarkup = `<span class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span>`;
@@ -480,18 +557,20 @@
                         optBtn.className = "w-full text-left p-4 rounded-xl border-2 border-rose-500 bg-rose-50 text-rose-950 text-sm md:text-base flex items-center justify-between";
                         iconMarkup = `<span class="w-7 h-7 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></span>`;
                     }
-                } else {
-                    optBtn.onclick = () => selectOption(index);
                 }
 
-                optBtn.innerHTML = `
-                    <span class="pr-3 leading-snug">${optText}</span>
-                    ${iconMarkup}
-                `;
+                if (!isReviewMode && !(activeMode === "practice" && selectedOpt !== null)) {
+                    optBtn.onclick = () => selectOption(index);
+                } else {
+                    optBtn.disabled = true;
+                }
+
+                optBtn.innerHTML = `<span class="pr-3 leading-snug">${optText}</span>${iconMarkup}`;
                 optionsContainer.appendChild(optBtn);
             });
 
-            if (isReviewMode || selectedOpt !== null) {
+            // Explicación (Retroalimentación)
+            if (isReviewMode || (activeMode === "practice" && selectedOpt !== null)) {
                 feedbackBox.classList.remove("hidden");
                 const isCorrect = selectedOpt === q.answer;
 
@@ -508,16 +587,14 @@
             }
 
             prevBtn.disabled = currentQuestionIndex === 0;
-            if (isReviewMode) {
-                nextBtn.disabled = false;
-                nextBtn.innerHTML = (currentQuestionIndex === total - 1) ? 
-                    `Volver al Resumen <i class="fa-solid fa-chart-pie ml-1.5"></i>` : 
-                    `Siguiente <i class="fa-solid fa-arrow-right ml-1.5"></i>`;
+            nextBtn.disabled = selectedOpt === null;
+
+            if (currentQuestionIndex === total - 1) {
+                nextBtn.innerHTML = activeMode === "practice" ? 
+                    `Finalizar Práctica <i class="fa-solid fa-flag-checkered ml-1.5"></i>` : 
+                    `Finalizar Examen <i class="fa-solid fa-flag-checkered ml-1.5"></i>`;
             } else {
-                nextBtn.disabled = selectedOpt === null;
-                nextBtn.innerHTML = (currentQuestionIndex === total - 1) ? 
-                    `Finalizar Examen <i class="fa-solid fa-flag-checkered ml-1.5"></i>` : 
-                    `Siguiente <i class="fa-solid fa-arrow-right ml-1.5"></i>`;
+                nextBtn.innerHTML = `Siguiente <i class="fa-solid fa-arrow-right ml-1.5"></i>`;
             }
         }
 
@@ -534,36 +611,31 @@
         }
 
         function goToNextQuestion() {
-            const total = questionsData.length;
+            const total = currentQuestions.length;
             if (currentQuestionIndex < total - 1) {
                 currentQuestionIndex++;
                 renderQuestion();
             } else {
-                if (isReviewMode) {
-                    showResultsScreen();
-                } else {
-                    finishQuiz();
-                }
+                finishQuiz();
             }
         }
 
         function finishQuiz() {
-            if (typeof timerInterval !== 'undefined') {
-                clearInterval(timerInterval);
-            }
+            clearInterval(timerInterval);
             showResultsScreen();
         }
 
         function showResultsScreen() {
             quizScreen.classList.add("hidden");
-            quizBadge.classList.add("hidden");
             resultsScreen.classList.remove("hidden");
+
+            document.getElementById("result-student-name").textContent = studentName;
 
             let correctCount = 0;
             const subjectStats = {};
             const subjectTotals = {};
 
-            questionsData.forEach((q, index) => {
+            currentQuestions.forEach((q, index) => {
                 const sub = q.subject;
                 if (!subjectStats[sub]) {
                     subjectStats[sub] = 0;
@@ -576,14 +648,12 @@
                 }
             });
 
-            const total = questionsData.length;
+            const total = currentQuestions.length;
             const porcentaje = Math.round((correctCount / total) * 100);
 
-            // Actualizar resumen en pantalla
             document.getElementById("score-text").innerText = `${correctCount} / ${total}`;
             document.getElementById("percentage-text").innerText = `${porcentaje}%`;
 
-            // Construir desglose por materia en pantalla
             const breakdownContainer = document.getElementById("subject-breakdown");
             breakdownContainer.innerHTML = "";
 
@@ -610,20 +680,19 @@
             }
 
             document.getElementById("recommendation-text").innerText = 
-                `Basado en los resultados, se recomienda enfocar las sesiones de repaso prioritariamente en la materia de ${materiaBaja}.`;
+                `Se recomienda repasar prioritariamente los temas de ${materiaBaja || "todas las materias"}.`;
 
-            // ENVIAR DATOS A GOOGLE SHEETS
-            enviarAGoogleSheets(correctCount, total, porcentaje, materiaBaja);
+            // SI ESTÁ EN MODO EXAMEN, REGISTRAR EN GOOGLE SHEETS
+            if (activeMode === "exam") {
+                enviarAGoogleSheets(studentName, correctCount, total, porcentaje, materiaBaja || "N/A");
+            }
         }
 
-        function enviarAGoogleSheets(aciertos, total, porcentaje, materiaReforzar) {
-            if (!URL_MI_API || URL_MI_API.includes("PEGA_AQUI_TU_URL")) {
-                console.warn("Falta pegar la URL pública de Google Apps Script en la variable URL_MI_API.");
-                return;
-            }
+        function enviarAGoogleSheets(nombre, aciertos, total, porcentaje, materiaReforzar) {
+            if (!URL_MI_API) return;
 
             const payload = {
-                nombre: "Hermana",
+                nombre: nombre,
                 aciertos: `${aciertos}/${total}`,
                 porcentaje: porcentaje,
                 materiaReforzar: materiaReforzar
@@ -632,9 +701,7 @@
             fetch(URL_MI_API, {
                 method: "POST",
                 mode: "no-cors",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             })
             .then(() => console.log("¡Resultados guardados exitosamente en Google Sheets!"))
@@ -644,14 +711,14 @@
         function enterReviewMode() {
             resultsScreen.classList.add("hidden");
             quizScreen.classList.remove("hidden");
-            quizBadge.classList.remove("hidden");
             isReviewMode = true;
             currentQuestionIndex = 0;
             renderQuestion();
         }
 
-        function resetQuiz() {
+        function returnToHome() {
             resultsScreen.classList.add("hidden");
+            quizScreen.classList.add("hidden");
             welcomeScreen.classList.remove("hidden");
             clearInterval(timerInterval);
         }
