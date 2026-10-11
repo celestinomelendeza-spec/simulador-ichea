@@ -586,7 +586,7 @@
                     feedbackBox.className = "p-4 rounded-xl text-sm space-y-1 bg-amber-50 border-amber-200 text-amber-900";
                     feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-info text-amber-600"></i> Explicación Educativa:`;
                 }
-                feedbackText.textContent = q.explanation;
+                feedbackText.innerHTML = q.explanation;
             } else {
                 feedbackBox.classList.add("hidden");
             }
