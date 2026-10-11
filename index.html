@@ -257,44 +257,49 @@
     <script>
         // --- DATASET DE PREGUNTAS COMPLETO ---
         const allQuestions = [
-            // MATEMÁTICAS (5 Preguntas)
+            // --- MATEMÁTICAS / PENSAMIENTO MATEMÁTICO ---
             {
                 subject: "Matemáticas",
-                question: "¿Cuál es el resultado de resolver la siguiente operación combinada: 12 + 4 × 3 - 6?",
-                options: ["42", "18", "24", "12"],
-                answer: 1,
-                explanation: "Por jerarquía de operaciones, primero se resuelve la multiplicación: 4 × 3 = 12. Luego sumas y restas de izquierda a derecha: 12 + 12 = 24; y finalmente 24 - 6 = 18."
-            },
-            {
-                subject: "Matemáticas",
-                question: "Si María compró 3/4 de kilo de harina y luego usó 1/2 kilo para cocinar pastel, ¿cuánta harina le quedó?",
-                options: ["1/4 de kilo", "1/2 kilo", "2/4 de kilo", "1/8 de kilo"],
+                module: "Módulo 3: Fracciones y Operaciones",
+                question: "Un tinaco de agua de 1,200 litros se encuentra lleno a 3/4 de su capacidad. Si se consumen 2/3 del agua que contenía, ¿cuántos litros de agua quedan exactamente en el tinaco?",
+                options: ["300 litros", "600 litros", "400 litros", "150 litros"],
                 answer: 0,
-                explanation: "Convertimos 1/2 a cuartos: 1/2 = 2/4. Luego restamos las fracciones: 3/4 - 2/4 = 1/4 de kilo de harina."
+                explanation: "<b>Paso 1 (Calcular la cantidad inicial):</b> 3/4 de 1,200 L = (1200 ÷ 4) × 3 = 900 Litros.<br><b>Paso 2 (Calcular lo consumido):</b> Se gastaron 2/3 de esos 900 L = (900 ÷ 3) × 2 = 600 Litros gastados.<br><b>Paso 3 (Diferencia restante):</b> 900 L - 600 L = <b>300 Litros restantes</b>.<br><i>💡 Tip de Examen:</i> Lee con cuidado si te preguntan 'cuánto se gastó' o 'cuánto queda'."
             },
             {
                 subject: "Matemáticas",
-                question: "Un pantalón cuesta $400 pesos y tiene un descuento del 15%. ¿Cuánto se pagará en total por el pantalón?",
-                options: ["$360", "$340", "$350", "$380"],
+                module: "Módulo 3: Porcentajes e Interés",
+                question: "En una tienda de ropa, una chamarra cuesta $850 pesos pero tiene un 20% de descuento. Al momento de pagar en caja, se cobra un 16% de IVA sobre el precio ya con descuento. ¿Cuánto se paga en total?",
+                options: ["$680.00", "$788.80", "$816.00", "$750.00"],
                 answer: 1,
-                explanation: "Calculamos el 15% de 400: (400 × 15) / 100 = 60 pesos de descuento. Restamos el descuento al precio original: $400 - $60 = $340 pesos."
+                explanation: "<b>Paso 1 (Descuento):</b> 20% de $850 = $170. Precio rebajado = $850 - $170 = $680.<br><b>Paso 2 (Impuesto IVA):</b> 16% de $680 = $680 × 0.16 = $108.80.<br><b>Paso 3 (Total final):</b> $680 + $108.80 = <b>$788.80</b>.<br><i>💡 Tip de Examen:</i> Los impuestos como el IVA siempre se calculan DESPUÉS de aplicar los descuentos."
             },
             {
                 subject: "Matemáticas",
-                question: "¿Cuál es el área de un terreno rectangular que mide 12 metros de largo por 8 metros de ancho?",
-                options: ["40 m²", "96 m²", "48 m²", "80 m²"],
+                module: "Módulo 4: Áreas y Perímetros",
+                question: "Se quiere cercar un terreno rectangular de 15 metros de largo por 10 metros de ancho con malla sombra. Además, se colocará pasto sintético en toda su superficie. ¿Cuántos metros de malla y cuántos metros cuadrados de pasto se necesitan?",
+                options: ["Malla: 50 m | Pasto: 150 m²", "Malla: 25 m | Pasto: 150 m²", "Malla: 150 m | Pasto: 50 m²", "Malla: 50 m | Pasto: 25 m²"],
+                answer: 0,
+                explanation: "<b>Concepto:</b> La cerca requiere PERÍMETRO (contorno) y el pasto requiere ÁREA (superficie).<br><b>Perímetro (Malla):</b> L + L + A + A = 15 + 15 + 10 + 10 = <b>50 metros</b>.<br><b>Área (Pasto):</b> Base × Altura = 15 × 10 = <b>150 m²</b>.<br><i>💡 Tip de Examen:</i> No confundas metros lineales (perímetro) con metros cuadrados (superficie)."
+            },
+            {
+                subject: "Matemáticas",
+                module: "Módulo 4: Lenguaje Algebraico",
+                question: "Si al triple de la edad de Juan se le suman 8 años, se obtiene la edad de su padre, quien tiene 50 años. ¿Qué ecuación representa este problema y cuál es la edad de Juan?",
+                options: ["3x - 8 = 50 → Juan tiene 19 años", "3x + 8 = 50 → Juan tiene 14 años", "x + 24 = 50 → Juan tiene 26 años", "3(x + 8) = 50 → Juan tiene 14 años"],
                 answer: 1,
-                explanation: "El área de un rectángulo se calcula multiplicando la base por la altura: A = base × altura = 12 m × 8 m = 96 m²."
+                explanation: "<b>Traducción a álgebra:</b> 'Triple de la edad' = 3x. 'Se le suman 8' = + 8. 'Obtiene 50' = = 50. Ecuación: <b>3x + 8 = 50</b>.<br><b>Despeje:</b> 3x = 50 - 8 => 3x = 42 => x = 42 / 3 = <b>14 años</b>."
             },
             {
                 subject: "Matemáticas",
-                question: "Resuelve la siguiente ecuación simple para encontrar el valor de 'x': 2x + 5 = 15",
-                options: ["x = 10", "x = 8", "x = 5", "x = 2.5"],
-                answer: 2,
-                explanation: "Restamos 5 a ambos lados: 2x = 15 - 5 => 2x = 10. Luego dividimos entre 2: x = 10 / 2 = 5."
+                module: "Módulo 5: Regla de Tres Directa e Inversa",
+                question: "4 trabajadores pintan una barda escolar en 6 horas. Si contratamos a 2 trabajadores más con el mismo ritmo de trabajo, ¿cuánto tiempo tardarán en pintar la misma barda?",
+                options: ["9 horas", "4 horas", "3 horas", "8 horas"],
+                answer: 1,
+                explanation: "<b>Análisis de Proporcionalidad:</b> Es una Regla de Tres INVERSA (a MÁS trabajadores, MENOS tiempo se tarda).<br>Trabajadores totales = 4 + 2 = 6 trabajadores.<br><b>Fórmula Inversa:</b> (Trabajadores iniciales × Horas iniciales) ÷ Trabajadores finales.<br>(4 × 6) ÷ 6 = 24 ÷ 6 = <b>4 horas</b>.<br><i>💡 Tip de Examen:</i> Si una variable sube y la otra baja, nunca uses regla de tres directa multiplicando cruzado."
             },
 
-            // LENGUA Y COMUNICACIÓN (5 Preguntas)
+            // --- LENGUA Y COMUNICACIÓN (5 Preguntas) ---
             {
                 subject: "Lengua y Comunicación",
                 question: "Identifica la palabra que contiene un error ortográfico en la siguiente oración: 'Ella tubo que ir a la farmacia a comprar medicina.'",
@@ -331,7 +336,7 @@
                 explanation: "Efímero significa algo que dura muy poco tiempo; por lo tanto, su antónimo u opuesto es 'Duradero'."
             },
 
-            // CIENCIAS NATURALES (5 Preguntas)
+            // --- CIENCIAS NATURALES (5 Preguntas) ---
             {
                 subject: "Ciencias Naturales",
                 question: "¿Cuál es la unidad estructural y funcional básica de todos los seres vivos?",
@@ -368,7 +373,7 @@
                 explanation: "Los líquidos tienen volumen constante pero sus moléculas se desplazan adaptablemente a la forma de su recipiente."
             },
 
-            // CIENCIAS SOCIALES (5 Preguntas)
+            // --- CIENCIAS SOCIALES (5 Preguntas) ---
             {
                 subject: "Ciencias Sociales",
                 question: "¿En qué fecha se conmemora el inicio de la Independencia de México?",
