@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Diagnóstico ICHEA / INEA - Secundaria</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0369a1 100%);
+        }
+        .option-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .option-card:hover {
+            border-color: #0284c7;
+            background-color: #f0f9ff;
+        }
+        .option-selected {
+            border-color: #0284c7 !important;
+            background-color: #e0f2fe !important;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="gradient-header text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2.5 rounded-xl backdrop-blur-md">
+                    <i class="fa-solid fa-graduation-cap text-2xl text-amber-400"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg md:text-xl tracking-tight">Simulador ICHEA / INEA</h1>
+                    <p class="text-xs text-slate-300">Diagnóstico de Secundaria - Chihuahua</p>
+                </div>
+            </div>
+            <div id="quiz-badge" class="hidden bg-sky-500/30 text-sky-200 border border-sky-400/30 px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm">
+                <i class="fa-solid fa-book-open mr-1.5"></i> <span id="subject-badge-text">Matemáticas</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto w-full px-4 py-6 flex-grow">
+
+        <!-- SCREEN 1: Welcome & Setup -->
+        <div id="welcome-screen" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 transition-all">
+            <div class="text-center max-w-2xl mx-auto">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sky-100 text-sky-600 mb-4">
+                    <i class="fa-solid fa-clipboard-check text-2xl"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Examen de Diagnóstico de Secundaria</h2>
+                <p class="text-slate-600 text-sm md:text-base mb-6 leading-relaxed">
+                    Diseñado especialmente para evaluar los conocimientos necesarios para acreditar la educación secundaria en el <strong>ICHEA (Instituto Chihuahuense para la Educación de los Adultos / INEA)</strong>.
+                </p>
+
+                <!-- Information Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left mb-8">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="flex items-center text-sky-600 font-semibold text-sm mb-1">
+                            <i class="fa-solid fa-list-check mr-2"></i> 20 Preguntas
+                        </div>
+                        <p class="text-xs text-slate-500">Reactivos con explicación detallada paso a paso.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="flex items-center text-amber-600 font-semibold text-sm mb-1">
+                            <i class="fa-solid fa-layer-group mr-2"></i> 4 Materias
+                        </div>
+                        <p class="text-xs text-slate-500">Matemáticas, Lengua, Ciencias y Ciencias Sociales.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="flex items-center text-emerald-600 font-semibold text-sm mb-1">
+                            <i class="fa-solid fa-chart-pie mr-2"></i> Reporte Final
+                        </div>
+                        <p class="text-xs text-slate-500">Análisis inmediato de fortalezas y temas a reforzar.</p>
+                    </div>
+                </div>
+
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-left mb-8 flex items-start space-x-3">
+                    <i class="fa-solid fa-circle-info text-amber-600 text-lg mt-0.5"></i>
+                    <p class="text-xs text-amber-800 leading-relaxed">
+                        <strong>Nota importante:</strong> No te preocupes si no recuerdas algunas respuestas. Este examen es de <strong>diagnóstico</strong> para saber desde dónde empezar a repasar.
+                    </p>
+                </div>
+
+                <button id="start-btn" class="w-full sm:w-auto bg-sky-600 hover:bg-sky-700 text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg shadow-sky-600/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                    <i class="fa-solid fa-play mr-2"></i> Comenzar Examen de Diagnóstico
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: Active Quiz Screen -->
+        <div id="quiz-screen" class="hidden space-y-6">
+            <!-- Progress Bar Card -->
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="w-full">
+                    <div class="flex justify-between text-xs font-semibold text-slate-500 mb-1.5">
+                        <span>Progreso General</span>
+                        <span id="progress-text">Pregunta 1 de 20</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                        <div id="progress-bar" class="bg-sky-600 h-2.5 rounded-full transition-all duration-300 w-[5%]"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between w-full md:w-auto space-x-4 border-t md:border-t-0 pt-2 md:pt-0 border-slate-100">
+                    <div class="text-slate-500 text-xs flex items-center">
+                        <i class="fa-regular fa-clock mr-1.5 text-slate-400"></i>
+                        <span id="timer-display" class="font-mono font-bold text-slate-700">00:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Display Card -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8 space-y-6">
+                <!-- Subject Badge & Topic -->
+                <div class="flex items-center justify-between">
+                    <span id="question-subject" class="bg-sky-100 text-sky-800 text-xs font-semibold px-3 py-1 rounded-full">
+                        Matemáticas
+                    </span>
+                    <span id="question-id-tag" class="text-xs text-slate-400 font-mono">Reactivo #1</span>
+                </div>
+
+                <!-- Question Prompt -->
+                <h3 id="question-text" class="text-base md:text-lg font-semibold text-slate-900 leading-relaxed">
+                    ¿Cargando pregunta...?
+                </h3>
+
+                <!-- Answer Options -->
+                <div id="options-container" class="space-y-3">
+                    <!-- Options populated by JS -->
+                </div>
+
+                <!-- Immediate Feedback Panel -->
+                <div id="feedback-box" class="hidden p-4 rounded-xl text-sm space-y-2 border">
+                    <div id="feedback-title" class="font-bold flex items-center gap-2"></div>
+                    <p id="feedback-text" class="text-slate-700 text-xs md:text-sm leading-relaxed"></p>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                    <button id="prev-btn" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-600 font-medium text-sm hover:bg-slate-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-arrow-left mr-1.5"></i> Anterior
+                    </button>
+                    <button id="next-btn" disabled class="px-6 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm transition-all shadow-md shadow-sky-600/20 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Siguiente <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: Results Dashboard -->
+        <div id="results-screen" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm text-center space-y-6">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-sky-50 text-sky-600 ring-8 ring-sky-50/50">
+                    <i class="fa-solid fa-square-poll-vertical text-3xl"></i>
+                </div>
+                
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Resultado del Diagnóstico</h2>
+                    <p class="text-slate-500 text-sm mt-1">Aquí está el desglose del desempeño para ICHEA Secundaria.</p>
+                </div>
+
+                <!-- Main Score Board -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Aciertos Totales</span>
+                        <div class="text-2xl font-bold text-slate-800 mt-1" id="score-text">0 / 20</div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Calificación</span>
+                        <div class="text-2xl font-bold text-sky-600 mt-1" id="percentage-text">0%</div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Estado Sugerido</span>
+                        <div class="text-sm font-bold mt-2 text-emerald-600" id="status-badge">Completado</div>
+                    </div>
+                </div>
+
+                <!-- Subject Breakdown -->
+                <div class="text-left space-y-3 pt-4 border-t border-slate-100">
+                    <h4 class="font-bold text-slate-800 text-sm flex items-center">
+                        <i class="fa-solid fa-chart-column mr-2 text-sky-600"></i> Desempeño por Materia:
+                    </h4>
+                    <div id="subject-breakdown" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Recommendation Box -->
+                <div id="recommendation-box" class="bg-sky-50 border border-sky-200 p-4 rounded-xl text-left text-sm text-sky-900 space-y-1">
+                    <div class="font-bold text-sky-950 flex items-center">
+                        <i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i> Plan de Estudio Recomendado:
+                    </div>
+                    <p id="recommendation-text" class="text-xs md:text-sm text-sky-800 leading-relaxed"></p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap justify-center gap-3 pt-4">
+                    <button id="restart-btn" class="bg-sky-600 hover:bg-sky-700 text-white font-semibold px-6 py-2.5 rounded-xl shadow-md transition-all text-sm">
+                        <i class="fa-solid fa-rotate-right mr-1.5"></i> Reiniciar Examen
+                    </button>
+                    <button id="review-btn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-6 py-2.5 rounded-xl border border-slate-200 transition-all text-sm">
+                        <i class="fa-solid fa-eye mr-1.5"></i> Repasar Respuestas
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        <div class="max-w-4xl mx-auto px-4">
+            <p>Herramienta de Diagnóstico Educativo Independiente — Basada en contenidos generales de Educación Básica Secundaria para INEA / ICHEA.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- DATASET OF QUESTIONS (20 REACTIVOS) ---
+        const questionsData = [
+            // MATEMÁTICAS (5 Preguntas)
+            {
+                subject: "Matemáticas",
+                question: "¿Cuál es el resultado de resolver la siguiente operación combinada: 12 + 4 × 3 - 6?",
+                options: ["42", "18", "24", "12"],
+                answer: 1,
+                explanation: "Por jerarquía de operaciones, primero se resuelve la multiplicación: 4 × 3 = 12. Luego sumas y restas de izquierda a derecha: 12 + 12 = 24; y finalmente 24 - 6 = 18."
+            },
+            {
+                subject: "Matemáticas",
+                question: "Si María compró 3/4 de kilo de harina y luego usó 1/2 kilo para cocinar pastel, ¿cuánta harina le quedó?",
+                options: ["1/4 de kilo", "1/2 kilo", "2/4 de kilo", "1/8 de kilo"],
+                answer: 0,
+                explanation: "Convertimos 1/2 a cuartos: 1/2 = 2/4. Luego restamos las fracciones: 3/4 - 2/4 = 1/4 de kilo de harina."
+            },
+            {
+                subject: "Matemáticas",
+                question: "Un pantalón cuesta $400 pesos y tiene un descuento del 15%. ¿Cuánto se pagará en total por el pantalón?",
+                options: ["$360", "$340", "$350", "$380"],
+                answer: 1,
+                explanation: "Calculamos el 15% de 400: (400 × 15) / 100 = 60 pesos de descuento. Restamos el descuento al precio original: $400 - $60 = $340 pesos."
+            },
+            {
+                subject: "Matemáticas",
+                question: "¿Cuál es el área de un terreno rectangular que mide 12 metros de largo por 8 metros de ancho?",
+                options: ["40 m²", "96 m²", "48 m²", "80 m²"],
+                answer: 1,
+                explanation: "El área de un rectángulo se calcula multiplicando la base por la altura: A = base × altura = 12 m × 8 m = 96 m²."
+            },
+            {
+                subject: "Matemáticas",
+                question: "Resuelve la siguiente ecuación simple para encontrar el valor de 'x': 2x + 5 = 15",
+                options: ["x = 10", "x = 8", "x = 5", "x = 2.5"],
+                answer: 2,
+                explanation: "Restamos 5 a ambos lados: 2x = 15 - 5 => 2x = 10. Luego dividimos entre 2: x = 10 / 2 = 5."
+            },
+
+            // LENGUA Y COMUNICACIÓN / ESPAÑOL (5 Preguntas)
+            {
+                subject: "Lengua y Comunicación",
+                question: "Identifica la palabra que contiene un error ortográfico en la siguiente oración: 'Ella tubo que ir a la farmacia a comprar medicina.'",
+                options: ["farmacia", "medicina", "comprar", "tubo"],
+                answer: 3,
+                explanation: "'Tubo' del verbo tener se escribe con **'v'** (**tuvo**). La palabra 'tubo' con 'b' se refiere a un cilindro hueco."
+            },
+            {
+                subject: "Lengua y Comunicación",
+                question: "¿Cuál de las siguientes opciones es un verbo conjugado en tiempo pretérito (pasado)?",
+                options: ["Caminaré", "Caminaba", "Caminó", "Caminar"],
+                answer: 2,
+                explanation: "'Caminó' expresa una acción concluida en el pasado (pretérito perfecto simple)."
+            },
+            {
+                subject: "Lengua y Comunicación",
+                question: "¿Qué tipo de texto tiene como propósito principal convencer o persuadir al lector mediante razones y argumentos?",
+                options: ["Texto narrativo", "Texto argumentativo", "Texto poético", "Texto instructivo"],
+                answer: 1,
+                explanation: "El texto argumentativo expone ideas, razones y evidencias con el objetivo de convencer al receptor sobre una postura."
+            },
+            {
+                subject: "Lengua y Comunicación",
+                question: "¿Cuál es el sujeto en la oración: 'Ayer por la tarde, los estudiantes del grupo organizaron un convivio'?",
+                options: ["Ayer por la tarde", "Los estudiantes del grupo", "Un convivio", "Organizaron"],
+                answer: 1,
+                explanation: "El sujeto es quien realiza la acción del verbo (¿Quiénes organizaron el convivio? -> 'Los estudiantes del grupo')."
+            },
+            {
+                subject: "Lengua y Comunicación",
+                question: "Elige la opción que presenta el antónimo (significado opuesto) de la palabra 'EFÍMERO':",
+                options: ["Breve", "Pasajero", "Duradero", "Fugaz"],
+                answer: 2,
+                explanation: "Efímero significa algo que dura muy poco tiempo; por lo tanto, su antónimo u opuesto es 'Duradero'."
+            },
+
+            // CIENCIAS NATURALES (BIOLOGÍA Y FÍSICA) (5 Preguntas)
+            {
+                subject: "Ciencias Naturales",
+                question: "¿Cuál es la unidad estructural y funcional básica de todos los seres vivos?",
+                options: ["Tejido", "Célula", "Órgano", "Átomo"],
+                answer: 1,
+                explanation: "La célula es la unidad más pequeña con vida capaz de realizar funciones vitales en los organismos."
+            },
+            {
+                subject: "Ciencias Naturales",
+                question: "Proceso biológico mediante el cual las plantas verdes convierten la luz solar en alimento fotosintético:",
+                options: ["Respiración celular", "Fotosíntesis", "Fermentación", "Combustión"],
+                answer: 1,
+                explanation: "La fotosíntesis permite a las plantas transformar agua y dióxido de carbono en glucosa y oxígeno utilizando luz solar."
+            },
+            {
+                subject: "Ciencias Naturales",
+                question: "¿Cuál es el gas que absorben principalmente los seres humanos al inspirar para la respiración aerobia?",
+                options: ["Dióxido de carbono", "Nitrógeno", "Oxígeno", "Hidrógeno"],
+                answer: 2,
+                explanation: "El oxígeno (O₂) es imprescindible en las células humanas para la producción de energía durante la respiración."
+            },
+            {
+                subject: "Ciencias Naturales",
+                question: "En física, la fuerza con la que la Tierra atrae a un objeto debido a la gravedad se conoce como:",
+                options: ["Masa", "Volumen", "Peso", "Densidad"],
+                answer: 2,
+                explanation: "El peso es la fuerza ejercida por el campo gravitatorio sobre la masa de un cuerpo (Peso = masa × gravedad)."
+            },
+            {
+                subject: "Ciencias Naturales",
+                question: "¿Qué estado de la materia se caracteriza por tener un volumen definido pero tomar la forma del recipiente que lo contiene?",
+                options: ["Sólido", "Líquido", "Gaseoso", "Plasma"],
+                answer: 1,
+                explanation: "Los líquidos tienen volumen constante pero sus moléculas se desplazan adaptablemente a la forma de su recipiente."
+            },
+
+            // CIENCIAS SOCIALES e HISTORIA (5 Preguntas)
+            {
+                subject: "Ciencias Sociales",
+                question: "¿En qué fecha se conmemora el inicio de la Independencia de México?",
+                options: ["20 de noviembre de 1910", "16 de septiembre de 1810", "5 de mayo de 1862", "24 de febrero de 1821"],
+                answer: 1,
+                explanation: "El 16 de septiembre de 1810 se conmemora el inicio de la lucha independentista encabezada por Miguel Hidalgo."
+            },
+            {
+                subject: "Ciencias Sociales",
+                question: "¿Cuál fue el movimiento armado social en México encabezado por personajes como Francisco I. Madero, Emiliano Zapata y Pancho Villa?",
+                options: ["La Guerra de Reforma", "La Revolución Mexicana", "La Batalla de Puebla", "La Guerra de los Pasteles"],
+                answer: 1,
+                explanation: "La Revolución Mexicana inició en 1910 buscando el fin de la dictadura porfirista y la justicia social e agraria."
+            },
+            {
+                subject: "Ciencias Sociales",
+                question: "¿Cuál es la capital del estado de Chihuahua?",
+                options: ["Ciudad Juárez", "Delicias", "Chihuahua", "Parral"],
+                answer: 2,
+                explanation: "La ciudad capital del estado de Chihuahua es la ciudad de Chihuahua (Municipio de Chihuahua)."
+            },
+            {
+                subject: "Ciencias Sociales",
+                question: "¿Cuál es el documento supremo en México que establece las leyes, derechos fundamentales y obligaciones de todos sus ciudadanos?",
+                options: ["El Código Civil", "La Constitución Política de los Estados Unidos Mexicanos", "La Ley Federal del Trabajo", "El Bando Municipal"],
+                answer: 1,
+                explanation: "La Constitución Política (promulgada en 1917) es la Carta Magna y ley suprema del país."
+            },
+            {
+                subject: "Ciencias Sociales",
+                question: "¿Qué continente abarca geográficamente a México, Estados Unidos y Canadá?",
+                options: ["Europa", "América (América del Norte)", "Asia", "Oceanía"],
+                answer: 1,
+                explanation: "México, EE. UU. y Canadá forman parte de la región septentrional del continente americano (América del Norte)."
+            }
+        ];
+
+        // --- CONFIGURACIÓN DE TU BACKEND EN GOOGLE SHEETS ---
+        // IMPORTANTE: Reemplaza esta URL con la URL de despliegue Web App de Google Apps Script (debe terminar en /exec)
+        const URL_MI_API = "https://script.google.com/macros/s/AKfycbyerTsEwrLLAqX_OHtAPZnQcOu2nivb4DLAXeDI-qutZ47ug0-kT0lVwVZgD2aN9Fs/exec";
+
+        // --- APP STATE CONTROL ---
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questionsData.length).fill(null);
+        let timerInterval = null;
+        let secondsElapsed = 0;
+        let isReviewMode = false;
+
+        // --- DOM ELEMENTS ---
+        const welcomeScreen = document.getElementById("welcome-screen");
+        const quizScreen = document.getElementById("quiz-screen");
+        const resultsScreen = document.getElementById("results-screen");
+        
+        const startBtn = document.getElementById("start-btn");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        const restartBtn = document.getElementById("restart-btn");
+        const reviewBtn = document.getElementById("review-btn");
+
+        const progressText = document.getElementById("progress-text");
+        const progressBar = document.getElementById("progress-bar");
+        const timerDisplay = document.getElementById("timer-display");
+        const quizBadge = document.getElementById("quiz-badge");
+        const subjectBadgeText = document.getElementById("subject-badge-text");
+
+        const questionSubject = document.getElementById("question-subject");
+        const questionIdTag = document.getElementById("question-id-tag");
+        const questionText = document.getElementById("question-text");
+        const optionsContainer = document.getElementById("options-container");
+        const feedbackBox = document.getElementById("feedback-box");
+        const feedbackTitle = document.getElementById("feedback-title");
+        const feedbackText = document.getElementById("feedback-text");
+
+        // --- EVENT LISTENERS ---
+        startBtn.addEventListener("click", startQuiz);
+        prevBtn.addEventListener("click", goToPrevQuestion);
+        nextBtn.addEventListener("click", goToNextQuestion);
+        restartBtn.addEventListener("click", resetQuiz);
+        reviewBtn.addEventListener("click", enterReviewMode);
+
+        function startQuiz() {
+            welcomeScreen.classList.add("hidden");
+            resultsScreen.classList.add("hidden");
+            quizScreen.classList.remove("hidden");
+            quizBadge.classList.remove("hidden");
+
+            currentQuestionIndex = 0;
+            userAnswers.fill(null);
+            secondsElapsed = 0;
+            isReviewMode = false;
+
+            startTimer();
+            renderQuestion();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                const mins = Math.floor(secondsElapsed / 60).toString().padStart(2, '0');
+                const secs = (secondsElapsed % 60).toString().padStart(2, '0');
+                timerDisplay.textContent = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        function renderQuestion() {
+            const q = questionsData[currentQuestionIndex];
+            const total = questionsData.length;
+
+            progressText.textContent = `Pregunta ${currentQuestionIndex + 1} de ${total}`;
+            progressBar.style.width = `${((currentQuestionIndex + 1) / total) * 100}%`;
+
+            questionSubject.textContent = q.subject;
+            subjectBadgeText.textContent = q.subject;
+            questionIdTag.textContent = `Reactivo #${currentQuestionIndex + 1}`;
+            questionText.textContent = q.question;
+
+            optionsContainer.innerHTML = "";
+            const selectedOpt = userAnswers[currentQuestionIndex];
+
+            q.options.forEach((optText, index) => {
+                const optBtn = document.createElement("button");
+                optBtn.type = "button";
+                optBtn.className = "option-card w-full text-left p-4 rounded-xl border border-slate-200 text-slate-800 text-sm md:text-base flex items-center justify-between group";
+
+                let iconMarkup = `<span class="w-7 h-7 rounded-full border border-slate-300 flex items-center justify-center text-xs font-semibold text-slate-500 group-hover:border-sky-500 group-hover:text-sky-600 transition-colors">${String.fromCharCode(65 + index)}</span>`;
+                
+                if (selectedOpt === index) {
+                    optBtn.classList.add("option-selected");
+                    iconMarkup = `<span class="w-7 h-7 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-bold"><i class="fa-solid fa-check"></i></span>`;
+                }
+
+                if (isReviewMode) {
+                    optBtn.disabled = true;
+                    if (index === q.answer) {
+                        optBtn.className = "w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-950 font-medium text-sm md:text-base flex items-center justify-between";
+                        iconMarkup = `<span class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span>`;
+                    } else if (selectedOpt === index && selectedOpt !== q.answer) {
+                        optBtn.className = "w-full text-left p-4 rounded-xl border-2 border-rose-500 bg-rose-50 text-rose-950 text-sm md:text-base flex items-center justify-between";
+                        iconMarkup = `<span class="w-7 h-7 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></span>`;
+                    }
+                } else {
+                    optBtn.onclick = () => selectOption(index);
+                }
+
+                optBtn.innerHTML = `
+                    <span class="pr-3 leading-snug">${optText}</span>
+                    ${iconMarkup}
+                `;
+                optionsContainer.appendChild(optBtn);
+            });
+
+            if (isReviewMode || selectedOpt !== null) {
+                feedbackBox.classList.remove("hidden");
+                const isCorrect = selectedOpt === q.answer;
+
+                if (isCorrect) {
+                    feedbackBox.className = "p-4 rounded-xl text-sm space-y-1 bg-emerald-50 border-emerald-200 text-emerald-900";
+                    feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> ¡Respuesta Correcta!`;
+                } else {
+                    feedbackBox.className = "p-4 rounded-xl text-sm space-y-1 bg-amber-50 border-amber-200 text-amber-900";
+                    feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-info text-amber-600"></i> Explicación Educativa:`;
+                }
+                feedbackText.textContent = q.explanation;
+            } else {
+                feedbackBox.classList.add("hidden");
+            }
+
+            prevBtn.disabled = currentQuestionIndex === 0;
+            if (isReviewMode) {
+                nextBtn.disabled = false;
+                nextBtn.innerHTML = (currentQuestionIndex === total - 1) ? 
+                    `Volver al Resumen <i class="fa-solid fa-chart-pie ml-1.5"></i>` : 
+                    `Siguiente <i class="fa-solid fa-arrow-right ml-1.5"></i>`;
+            } else {
+                nextBtn.disabled = selectedOpt === null;
+                nextBtn.innerHTML = (currentQuestionIndex === total - 1) ? 
+                    `Finalizar Examen <i class="fa-solid fa-flag-checkered ml-1.5"></i>` : 
+                    `Siguiente <i class="fa-solid fa-arrow-right ml-1.5"></i>`;
+            }
+        }
+
+        function selectOption(index) {
+            userAnswers[currentQuestionIndex] = index;
+            renderQuestion();
+        }
+
+        function goToPrevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        function goToNextQuestion() {
+            const total = questionsData.length;
+            if (currentQuestionIndex < total - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                if (isReviewMode) {
+                    showResultsScreen();
+                } else {
+                    finishQuiz();
+                }
+            }
+        }
+
+        function finishQuiz() {
+            if (typeof timerInterval !== 'undefined') {
+                clearInterval(timerInterval);
+            }
+            showResultsScreen();
+        }
+
+        function showResultsScreen() {
+            quizScreen.classList.add("hidden");
+            quizBadge.classList.add("hidden");
+            resultsScreen.classList.remove("hidden");
+
+            let correctCount = 0;
+            const subjectStats = {};
+            const subjectTotals = {};
+
+            questionsData.forEach((q, index) => {
+                const sub = q.subject;
+                if (!subjectStats[sub]) {
+                    subjectStats[sub] = 0;
+                    subjectTotals[sub] = 0;
+                }
+                subjectTotals[sub]++;
+                if (userAnswers[index] === q.answer) {
+                    correctCount++;
+                    subjectStats[sub]++;
+                }
+            });
+
+            const total = questionsData.length;
+            const porcentaje = Math.round((correctCount / total) * 100);
+
+            // Actualizar resumen en pantalla
+            document.getElementById("score-text").innerText = `${correctCount} / ${total}`;
+            document.getElementById("percentage-text").innerText = `${porcentaje}%`;
+
+            // Construir desglose por materia en pantalla
+            const breakdownContainer = document.getElementById("subject-breakdown");
+            breakdownContainer.innerHTML = "";
+
+            let materiaBaja = "";
+            let menorPorcentaje = 101;
+
+            for (let sub in subjectStats) {
+                const aciertosSub = subjectStats[sub];
+                const totalSub = subjectTotals[sub];
+                const pctSub = Math.round((aciertosSub / totalSub) * 100);
+
+                if (pctSub < menorPorcentaje) {
+                    menorPorcentaje = pctSub;
+                    materiaBaja = sub;
+                }
+
+                const card = document.createElement("div");
+                card.className = "bg-slate-50 border border-slate-200 rounded-xl p-3 flex justify-between items-center text-xs";
+                card.innerHTML = `
+                    <span class="font-medium text-slate-700">${sub}</span>
+                    <span class="font-bold text-slate-900">${aciertosSub}/${totalSub} (${pctSub}%)</span>
+                `;
+                breakdownContainer.appendChild(card);
+            }
+
+            document.getElementById("recommendation-text").innerText = 
+                `Basado en los resultados, se recomienda enfocar las sesiones de repaso prioritariamente en la materia de ${materiaBaja}.`;
+
+            // ENVIAR DATOS A GOOGLE SHEETS
+            enviarAGoogleSheets(correctCount, total, porcentaje, materiaBaja);
+        }
+
+        function enviarAGoogleSheets(aciertos, total, porcentaje, materiaReforzar) {
+            if (!URL_MI_API || URL_MI_API.includes("PEGA_AQUI_TU_URL")) {
+                console.warn("Falta pegar la URL pública de Google Apps Script en la variable URL_MI_API.");
+                return;
+            }
+
+            const payload = {
+                nombre: "Hermana",
+                aciertos: `${aciertos}/${total}`,
+                porcentaje: porcentaje,
+                materiaReforzar: materiaReforzar
+            };
+
+            fetch(URL_MI_API, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(() => console.log("¡Resultados guardados exitosamente en Google Sheets!"))
+            .catch(err => console.error("Error al enviar a Google Sheets:", err));
+        }
+
+        function enterReviewMode() {
+            resultsScreen.classList.add("hidden");
+            quizScreen.classList.remove("hidden");
+            quizBadge.classList.remove("hidden");
+            isReviewMode = true;
+            currentQuestionIndex = 0;
+            renderQuestion();
+        }
+
+        function resetQuiz() {
+            resultsScreen.classList.add("hidden");
+            welcomeScreen.classList.remove("hidden");
+            clearInterval(timerInterval);
+        }
+    </script>
+</body>
+</html>
