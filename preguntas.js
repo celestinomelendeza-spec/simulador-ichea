@@ -1,6 +1,5 @@
 // --- DATASET DE PREGUNTAS COMPLETO ---
 const allQuestions = [
-    // --- MATEMÁTICAS / PENSAMIENTO MATEMÁTICO ---
     // --- BLOQUE NUEVO: MATEMÁTICAS / PENSAMIENTO MATEMÁTICO (ICHEA/INEA) ---
     {
         subject: "Matemáticas",
@@ -55,7 +54,7 @@ const allQuestions = [
         options: ["$480 pesos", "$360 pesos", "$540 pesos", "$400 pesos"],
         answer: 0,
         explanation: "<b>Paso 1 (Costo por metro):</b> $180 ÷ 3 = $60 pesos cada metro.<br><b>Paso 2 (Multiplicar por los metros deseados):</b> $60 × 8 = <b>$480 pesos</b>.<br>Con Regla de tres: (8 × 180) ÷ 3 = 1440 ÷ 3 = <b>$480</b>."
-    }
+    },
 
     // --- LENGUA Y COMUNICACIÓN ---
     {
