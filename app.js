@@ -312,8 +312,15 @@ function showResultsScreen() {
     document.getElementById("recommendation-text").innerText =
         `Se recomienda repasar prioritariamente los temas de ${materiaBaja || "todas las materias"}.`;
 
-    // Envío automático a Google Sheets tanto en Examen como en Práctica
-    const tipoModalidad = activeMode === "exam" ? "Examen" : "Práctica";
+    // Envío automático a Google Sheets diferenciando Global de Materia
+    let tipoModalidad = "";
+    if (activeMode === "practice") {
+        tipoModalidad = "Práctica";
+    } else {
+        const examType = examTypeSelect.value;
+        tipoModalidad = (examType === "Global") ? "Examen Global" : `Examen - ${examType}`;
+    }
+
     enviarAGoogleSheets(
         studentName,
         tipoModalidad,
