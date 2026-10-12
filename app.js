@@ -1,5 +1,5 @@
 // --- CONFIGURACIÓN DE TU GOOGLE APPS SCRIPT ---
-const URL_MI_API = "https://script.google.com/macros/s/AKfycby9diCX3BR7DU-EEgnLzf2NLr-Zjo8j3hKTyvIPahKypvp9DPOvZZWGZol5UbdZGZzH/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9diCX3BR7DU-EEgnLzf2NLr-Zjo8j3hKTyvIPahKypvp9DPOvZZWGZol5UbdZGZzH/exec";
 
 // --- ESTADO DE LA APLICACIÓN ---
 let currentQuestions = [];
@@ -87,6 +87,7 @@ function initQuiz(mode) {
 
     activeMode = mode;
     isReviewMode = false;
+    secondsElapsed = 0; // Reiniciar contador de tiempo
 
     if (activeMode === "practice") {
         const sub = practiceSubjectSelect.value;
@@ -95,11 +96,8 @@ function initQuiz(mode) {
         if (sub === "Todas") {
             filtered = shuffleArray(allQuestions).slice(0, 20);
         } else {
-            // Verificar si es materia general o módulo específico
             const isModule = allQuestions.some(q => q.module === sub);
             const pool = allQuestions.filter(q => q.subject === sub || q.module === sub);
-
-            // Si es módulo específico limitamos a 5, si es materia general limitamos a 10
             const maxQuestions = isModule ? 5 : 10;
             filtered = shuffleArray(pool).slice(0, maxQuestions);
         }
@@ -107,6 +105,7 @@ function initQuiz(mode) {
         currentQuestions = filtered;
         quizModeTitle.textContent = "Modo Práctica / Estudio";
         timerBox.classList.add("hidden");
+        startTimer(); // También contamos tiempo en práctica para reportarlo
 
     } else { // Modo Examen
         const examType = examTypeSelect.value;
@@ -158,7 +157,6 @@ function renderQuestion() {
     questionIdTag.textContent = `Reactivo #${currentQuestionIndex + 1}`;
     questionText.textContent = q.question;
 
-    // Pistas en Modo Práctica
     if (activeMode === "practice" && !isReviewMode && q.hint) {
         hintWrapper.classList.remove("hidden");
         hintBox.innerHTML = q.hint;
@@ -314,9 +312,16 @@ function showResultsScreen() {
     document.getElementById("recommendation-text").innerText =
         `Se recomienda repasar prioritariamente los temas de ${materiaBaja || "todas las materias"}.`;
 
-    if (activeMode === "exam") {
-        enviarAGoogleSheets(studentName, correctCount, total, porcentaje, materiaBaja || "N/A");
-    }
+    // Envío automático a Google Sheets tanto en Examen como en Práctica
+    const tipoModalidad = activeMode === "exam" ? "Examen" : "Práctica";
+    enviarAGoogleSheets(
+        studentName,
+        tipoModalidad,
+        correctCount,
+        total,
+        secondsElapsed,
+        materiaBaja || "Ninguna"
+    );
 }
 
 function enviarAGoogleSheets(nombreEstudiante, tipoExamen, aciertos, totalPreguntas, segundosTranscurridos, materiaDebil) {
