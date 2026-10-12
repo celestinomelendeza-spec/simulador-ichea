@@ -8,6 +8,7 @@ let userAnswers = [];
 let timerInterval = null;
 let secondsElapsed = 0;
 let activeMode = "exam"; // "practice" o "exam"
+let selectedPracticeTopic = "";
 let isReviewMode = false;
 let studentName = "";
 
@@ -90,7 +91,8 @@ function initQuiz(mode) {
     secondsElapsed = 0; // Reiniciar contador de tiempo
 
     if (activeMode === "practice") {
-        const sub = practiceSubjectSelect.value;
+        selectedPracticeTopic = practiceSubjectSelect.value; // <--- AGREGAR ESTA LÍNEA
+        const sub = selectedPracticeTopic;
         let filtered = [];
 
         if (sub === "Todas") {
@@ -312,15 +314,14 @@ function showResultsScreen() {
     document.getElementById("recommendation-text").innerText =
         `Se recomienda repasar prioritariamente los temas de ${materiaBaja || "todas las materias"}.`;
 
-    // --- CONSTRUCCIÓN DEL TIPO DE EVALUACIÓN EXACTO ---
+    // Identificar el tipo exacto para separar los promedios
     let tipoModalidad = "";
 
     if (activeMode === "practice") {
-        const seleccionPractica = practiceSubjectSelect.value;
-        if (seleccionPractica === "Todas") {
+        if (selectedPracticeTopic === "Todas") {
             tipoModalidad = "Práctica - General (Todas)";
         } else {
-            tipoModalidad = `Práctica - ${seleccionPractica}`;
+            tipoModalidad = `Práctica - ${selectedPracticeTopic}`;
         }
     } else {
         const seleccionExamen = examTypeSelect.value;
@@ -331,7 +332,6 @@ function showResultsScreen() {
         }
     }
 
-    // Envío de datos a Google Sheets
     enviarAGoogleSheets(
         studentName,
         tipoModalidad,
