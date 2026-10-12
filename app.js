@@ -314,14 +314,23 @@ function showResultsScreen() {
     document.getElementById("recommendation-text").innerText =
         `Se recomienda repasar prioritariamente los temas de ${materiaBaja || "todas las materias"}.`;
 
-    // Identificar el tipo exacto para separar los promedios
+    // Identificar la modalidad exacta para enviar a Google Sheets
     let tipoModalidad = "";
 
     if (activeMode === "practice") {
-        if (selectedPracticeTopic === "Todas") {
-            tipoModalidad = "Práctica - General (Todas)";
+        const seleccion = practiceSubjectSelect.value;
+
+        if (seleccion === "Todas") {
+            tipoModalidad = "Práctica - Todas las materias";
         } else {
-            tipoModalidad = `Práctica - ${selectedPracticeTopic}`;
+            // Verificamos si la opción elegida es una Materia General
+            const materiasGenerales = ["Matemáticas", "Lengua y Comunicación", "Ciencias Naturales", "Ciencias Sociales"];
+
+            if (materiasGenerales.includes(seleccion)) {
+                tipoModalidad = `Práctica - Materia: ${seleccion}`;
+            } else {
+                tipoModalidad = `Práctica - Módulo: ${seleccion}`;
+            }
         }
     } else {
         const seleccionExamen = examTypeSelect.value;
