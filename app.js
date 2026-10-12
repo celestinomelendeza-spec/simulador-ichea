@@ -1,5 +1,5 @@
 // --- CONFIGURACIÓN DE TU GOOGLE APPS SCRIPT ---
-const URL_MI_API = "https://script.google.com/macros/s/AKfycbyerTsEwrLLAqX_OHtAPZnQcOu2nivb4DLAXeDI-qutZ47ug0-kT0lVwVZgD2aN9Fs/exec";
+const URL_MI_API = "https://script.google.com/macros/s/AKfycby9diCX3BR7DU-EEgnLzf2NLr-Zjo8j3hKTyvIPahKypvp9DPOvZZWGZol5UbdZGZzH/exec";
 
 // --- ESTADO DE LA APLICACIÓN ---
 let currentQuestions = [];
@@ -98,7 +98,7 @@ function initQuiz(mode) {
             // Verificar si es materia general o módulo específico
             const isModule = allQuestions.some(q => q.module === sub);
             const pool = allQuestions.filter(q => q.subject === sub || q.module === sub);
-            
+
             // Si es módulo específico limitamos a 5, si es materia general limitamos a 10
             const maxQuestions = isModule ? 5 : 10;
             filtered = shuffleArray(pool).slice(0, maxQuestions);
@@ -222,8 +222,8 @@ function renderQuestion() {
     nextBtn.disabled = selectedOpt === null;
 
     if (currentQuestionIndex === total - 1) {
-        nextBtn.innerHTML = activeMode === "practice" ? 
-            `Finalizar Práctica <i class="fa-solid fa-flag-checkered ml-1.5"></i>` : 
+        nextBtn.innerHTML = activeMode === "practice" ?
+            `Finalizar Práctica <i class="fa-solid fa-flag-checkered ml-1.5"></i>` :
             `Finalizar Examen <i class="fa-solid fa-flag-checkered ml-1.5"></i>`;
     } else {
         nextBtn.innerHTML = `Siguiente <i class="fa-solid fa-arrow-right ml-1.5"></i>`;
@@ -311,7 +311,7 @@ function showResultsScreen() {
         breakdownContainer.appendChild(card);
     }
 
-    document.getElementById("recommendation-text").innerText = 
+    document.getElementById("recommendation-text").innerText =
         `Se recomienda repasar prioritariamente los temas de ${materiaBaja || "todas las materias"}.`;
 
     if (activeMode === "exam") {
@@ -319,24 +319,29 @@ function showResultsScreen() {
     }
 }
 
-function enviarAGoogleSheets(nombre, aciertos, total, porcentaje, materiaReforzar) {
-    if (!URL_MI_API) return;
+function enviarAGoogleSheets(nombreEstudiante, tipoExamen, aciertos, totalPreguntas, segundosTranscurridos, materiaDebil) {
+    const minutos = Math.floor(segundosTranscurridos / 60);
+    const segundos = segundosTranscurridos % 60;
+    const tiempoTexto = `${minutos}m ${segundos}s`;
+    const porcentaje = Math.round((aciertos / totalPreguntas) * 100);
 
     const payload = {
-        nombre: nombre,
-        aciertos: `${aciertos}/${total}`,
-        porcentaje: porcentaje,
-        materiaReforzar: materiaReforzar
+        studentName: nombreEstudiante,
+        examType: tipoExamen,
+        scoreText: `${aciertos} / ${totalPreguntas}`,
+        percentage: porcentaje,
+        timeTaken: tiempoTexto,
+        weakestSubject: materiaDebil || "Ninguna (¡Excelente!)"
     };
 
-    fetch(URL_MI_API, {
+    fetch(SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     })
-    .then(() => console.log("¡Resultados guardados exitosamente en Google Sheets!"))
-    .catch(err => console.error("Error al enviar a Google Sheets:", err));
+        .then(() => console.log("¡Resultados enviados a Google Sheets con éxito!"))
+        .catch(err => console.error("Error al enviar a Google Sheets:", err));
 }
 
 function enterReviewMode() {
