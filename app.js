@@ -312,15 +312,26 @@ function showResultsScreen() {
     document.getElementById("recommendation-text").innerText =
         `Se recomienda repasar prioritariamente los temas de ${materiaBaja || "todas las materias"}.`;
 
-    // Envío automático a Google Sheets diferenciando Global de Materia
+    // --- CONSTRUCCIÓN DEL TIPO DE EVALUACIÓN EXACTO ---
     let tipoModalidad = "";
+
     if (activeMode === "practice") {
-        tipoModalidad = "Práctica";
+        const seleccionPractica = practiceSubjectSelect.value;
+        if (seleccionPractica === "Todas") {
+            tipoModalidad = "Práctica - General (Todas)";
+        } else {
+            tipoModalidad = `Práctica - ${seleccionPractica}`;
+        }
     } else {
-        const examType = examTypeSelect.value;
-        tipoModalidad = (examType === "Global") ? "Examen Global" : `Examen - ${examType}`;
+        const seleccionExamen = examTypeSelect.value;
+        if (seleccionExamen === "Global") {
+            tipoModalidad = "Examen Global";
+        } else {
+            tipoModalidad = `Examen - ${seleccionExamen}`;
+        }
     }
 
+    // Envío de datos a Google Sheets
     enviarAGoogleSheets(
         studentName,
         tipoModalidad,
