@@ -207,12 +207,17 @@ function renderQuestion() {
         const isCorrect = selectedOpt === q.answer;
 
         if (isCorrect) {
-            feedbackBox.className = "p-4 rounded-xl text-sm space-y-1 bg-emerald-50 border-emerald-200 text-emerald-900";
-            feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> ¡Respuesta Correcta!`;
+            // Verde translúcido para respuesta correcta
+            feedbackBox.className = "p-4 rounded-xl text-sm space-y-1 bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 shadow-md";
+            feedbackTitle.className = "font-bold text-emerald-400 flex items-center gap-2 text-base";
+            feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> ¡Respuesta Correcta!`;
         } else {
-            feedbackBox.className = "p-4 rounded-xl text-sm space-y-1 bg-amber-50 border-amber-200 text-amber-900";
-            feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-info text-amber-600"></i> Explicación Educativa:`;
+            // Ámbar/Naranja translúcido para retroalimentación/explicación
+            feedbackBox.className = "p-4 rounded-xl text-sm space-y-1 bg-amber-950/80 border border-amber-500/40 text-amber-200 shadow-md";
+            feedbackTitle.className = "font-bold text-amber-300 flex items-center gap-2 text-base";
+            feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-info text-amber-400"></i> Explicación Educativa:`;
         }
+        feedbackText.className = "text-slate-200 text-xs md:text-sm leading-relaxed mt-1";
         feedbackText.innerHTML = q.explanation;
     } else {
         feedbackBox.classList.add("hidden");
