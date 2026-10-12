@@ -184,10 +184,12 @@ function renderQuestion() {
 
         if (isReviewMode || (activeMode === "practice" && selectedOpt !== null)) {
             if (index === q.answer) {
-                optBtn.className = "w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-950 font-medium text-sm md:text-base flex items-center justify-between";
+                // Opción Correcta (Verde oscuro neón)
+                optBtn.className = "w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-950/80 text-emerald-100 font-medium text-sm md:text-base flex items-center justify-between";
                 iconMarkup = `<span class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span>`;
             } else if (selectedOpt === index && selectedOpt !== q.answer) {
-                optBtn.className = "w-full text-left p-4 rounded-xl border-2 border-rose-500 bg-rose-50 text-rose-950 text-sm md:text-base flex items-center justify-between";
+                // Opción Incorrecta (Rojo oscuro neón)
+                optBtn.className = "w-full text-left p-4 rounded-xl border-2 border-rose-500 bg-rose-950/80 text-rose-100 text-sm md:text-base flex items-center justify-between";
                 iconMarkup = `<span class="w-7 h-7 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></span>`;
             }
         }
@@ -207,13 +209,11 @@ function renderQuestion() {
         const isCorrect = selectedOpt === q.answer;
 
         if (isCorrect) {
-            // Verde translúcido para respuesta correcta
-            feedbackBox.className = "p-4 rounded-xl text-sm space-y-1 bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 shadow-md";
+            feedbackBox.className = "p-5 rounded-2xl text-sm space-y-2 bg-emerald-950/90 border border-emerald-500/50 text-emerald-100 shadow-lg";
             feedbackTitle.className = "font-bold text-emerald-400 flex items-center gap-2 text-base";
             feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> ¡Respuesta Correcta!`;
         } else {
-            // Ámbar/Naranja translúcido para retroalimentación/explicación
-            feedbackBox.className = "p-4 rounded-xl text-sm space-y-1 bg-amber-950/80 border border-amber-500/40 text-amber-200 shadow-md";
+            feedbackBox.className = "p-5 rounded-2xl text-sm space-y-2 bg-slate-900/95 border border-amber-500/50 text-amber-100 shadow-lg";
             feedbackTitle.className = "font-bold text-amber-300 flex items-center gap-2 text-base";
             feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-info text-amber-400"></i> Explicación Educativa:`;
         }
