@@ -321,16 +321,16 @@ function showResultsScreen() {
         const seleccion = practiceSubjectSelect.value;
 
         if (seleccion === "Todas") {
-            tipoModalidad = "Práctica - Todas las materias";
+            tipoModalidad = "Práctica - General (Todas)";
+        } else if (
+            seleccion === "Matemáticas" ||
+            seleccion === "Lengua y Comunicación" ||
+            seleccion === "Ciencias Naturales" ||
+            seleccion === "Ciencias Sociales"
+        ) {
+            tipoModalidad = `Práctica - Materia: ${seleccion}`;
         } else {
-            // Verificamos si la opción elegida es una Materia General
-            const materiasGenerales = ["Matemáticas", "Lengua y Comunicación", "Ciencias Naturales", "Ciencias Sociales"];
-
-            if (materiasGenerales.includes(seleccion)) {
-                tipoModalidad = `Práctica - Materia: ${seleccion}`;
-            } else {
-                tipoModalidad = `Práctica - Módulo: ${seleccion}`;
-            }
+            tipoModalidad = `Práctica - Módulo: ${seleccion}`;
         }
     } else {
         const seleccionExamen = examTypeSelect.value;
