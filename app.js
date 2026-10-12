@@ -67,6 +67,16 @@ toggleHintBtn.addEventListener("click", () => {
     hintBox.classList.toggle("hidden");
 });
 
+// Función para mezclar arreglos al azar
+function shuffleArray(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
 function initQuiz(mode) {
     const inputVal = studentNameInput.value.trim();
     studentName = inputVal !== "" ? inputVal : "Estudiante";
@@ -78,23 +88,38 @@ function initQuiz(mode) {
     activeMode = mode;
     isReviewMode = false;
 
-    // Filtrar preguntas según materia o módulo
     if (activeMode === "practice") {
         const sub = practiceSubjectSelect.value;
+        let filtered = [];
+
         if (sub === "Todas") {
-            currentQuestions = [...allQuestions];
+            filtered = shuffleArray(allQuestions).slice(0, 20);
         } else {
-            currentQuestions = allQuestions.filter(q => q.subject === sub || q.module === sub);
+            // Verificar si es materia general o módulo específico
+            const isModule = allQuestions.some(q => q.module === sub);
+            const pool = allQuestions.filter(q => q.subject === sub || q.module === sub);
+            
+            // Si es módulo específico limitamos a 5, si es materia general limitamos a 10
+            const maxQuestions = isModule ? 5 : 10;
+            filtered = shuffleArray(pool).slice(0, maxQuestions);
         }
+
+        currentQuestions = filtered;
         quizModeTitle.textContent = "Modo Práctica / Estudio";
         timerBox.classList.add("hidden");
+
     } else { // Modo Examen
         const examType = examTypeSelect.value;
+        let filtered = [];
+
         if (examType === "Global") {
-            currentQuestions = [...allQuestions];
+            filtered = shuffleArray(allQuestions).slice(0, 30);
         } else {
-            currentQuestions = allQuestions.filter(q => q.subject === examType);
+            const pool = allQuestions.filter(q => q.subject === examType);
+            filtered = shuffleArray(pool).slice(0, 15);
         }
+
+        currentQuestions = filtered;
         quizModeTitle.textContent = "Modo Examen";
         timerBox.classList.remove("hidden");
         startTimer();
@@ -133,11 +158,11 @@ function renderQuestion() {
     questionIdTag.textContent = `Reactivo #${currentQuestionIndex + 1}`;
     questionText.textContent = q.question;
 
-    // Manejo de Pistas
+    // Pistas en Modo Práctica
     if (activeMode === "practice" && !isReviewMode && q.hint) {
         hintWrapper.classList.remove("hidden");
         hintBox.innerHTML = q.hint;
-        hintBox.classList.add("hidden"); // Se oculta por defecto hasta dar clic en el botón
+        hintBox.classList.add("hidden");
     } else {
         hintWrapper.classList.add("hidden");
     }
@@ -177,7 +202,6 @@ function renderQuestion() {
         optionsContainer.appendChild(optBtn);
     });
 
-    // Explicación
     if (isReviewMode || (activeMode === "practice" && selectedOpt !== null)) {
         feedbackBox.classList.remove("hidden");
         const isCorrect = selectedOpt === q.answer;
