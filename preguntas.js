@@ -272,6 +272,97 @@ const allQuestions = [
         answer: 0,
         explanation: "1/2 litro = 0.50 litros.<br>1.75 L - 0.50 L = <b>1.25 litros</b>."
     },
+    // --- MATEMÁTICAS ---
+    {
+        subject: "Matemáticas",
+        module: "Módulo 3: Fracciones y Operaciones",
+        hint: "<b>Pista / Recordatorio:</b> Para sumar fracciones con diferente denominador, puedes usar el método de productos cruzados o buscar un denominador común.",
+        question: "Resuelve la siguiente suma de fracciones con distinto denominador: (1/2) + (1/4)",
+        options: ["2/6", "3/4", "2/4", "5/8"],
+        answer: 1,
+        explanation: "<b>Paso 1:</b> Convertimos 1/2 a cuartos (2/4).<br><b>Paso 2:</b> Sumamos 2/4 + 1/4 = <b>3/4</b>."
+    },
+    {
+        subject: "Matemáticas",
+        module: "Módulo 3: Fracciones y Operaciones",
+        hint: "<b>Pista / Recordatorio:</b> Para dividir fracciones, multiplica en diagonal o invierte la segunda fracción y multiplícala directo.",
+        question: "Resuelve la división de fracciones: (3/4) ÷ (1/2)",
+        options: ["3/8", "6/4 (equivalente a 3/2)", "4/6", "1/4"],
+        answer: 1,
+        explanation: "<b>Multiplicación cruzada:</b> (3 × 2) en el numerador = 6, y (4 × 1) en el denominador = 4. Resultado: 6/4 = <b>3/2</b>."
+    },
+    {
+        subject: "Matemáticas",
+        module: "Módulo 3: Porcentajes e Interés",
+        hint: "<b>Pista / Recordatorio:</b> Para calcular el 50% sacas mitad, para el 25% sacas cuarta parte, y para el 10% divides entre 10.",
+        question: "¿A qué cantidad numérica equivale exactamente el 25% de 840 pesos?",
+        options: ["$210 pesos", "$420 pesos", "$168 pesos", "$250 pesos"],
+        answer: 0,
+        explanation: "<b>Cálculo:</b> Multiplicar por 0.25 o dividir entre 4. $840 ÷ 4 = <b>$210 pesos</b>."
+    },
+    {
+        subject: "Matemáticas",
+        module: "Módulo 3: Porcentajes e Interés",
+        hint: "<b>Pista / Recordatorio:</b> Si un artículo de $500 baja a $400, el descuento fue de $100. Divide la rebaja entre el precio original y multiplica por 100.",
+        question: "Un artículo que costaba originalmente $600 pesos se adquiere en una liquidación por $450 pesos. ¿Qué porcentaje de descuento se le aplicó?",
+        options: ["15%", "20%", "25%", "30%"],
+        answer: 2,
+        explanation: "<b>Paso 1:</b> Descuento = $600 - $450 = $150.<br><b>Paso 2:</b> ($150 ÷ $600) × 100 = 0.25 × 100 = <b>25%</b>."
+    },
+    {
+        subject: "Matemáticas",
+        module: "Módulo 4: Áreas y Perímetros",
+        hint: "<b>Pista / Recordatorio:</b> El perímetro de una figura geométrica se obtiene sumando la longitud de todos sus lados externos.",
+        question: "Un terreno en forma de pentágono regular mide 12 metros por cada uno de sus 5 lados iguales. ¿Cuál es su perímetro total?",
+        options: ["60 metros", "48 metros", "72 metros", "50 metros"],
+        answer: 0,
+        explanation: "<b>Perímetro:</b> Lado × número de lados = 12 × 5 = <b>60 metros</b>."
+    },
+    {
+        subject: "Matemáticas",
+        module: "Módulo 4: Áreas y Perímetros",
+        hint: "<b>Pista / Recordatorio:</b> El área de un círculo se calcula con la fórmula: <i>Área = π × radio al cuadrado</i> ($\pi \cdot r^2$), considerando $\pi \approx 3.14$.",
+        question: "¿Cuál es el área aproximada de una carpa circular que tiene un radio de 3 metros?",
+        options: ["18.84 m²", "28.26 m²", "9.42 m²", "37.68 m²"],
+        answer: 1,
+        explanation: "<b>Cálculo:</b> 3.14 × ($3^2$) = 3.14 × 9 = <b>28.26 m²</b>."
+    },
+    {
+        subject: "Matemáticas",
+        module: "Módulo 4: Lenguaje Algebraico",
+        hint: "<b>Pista / Recordatorio:</b> Al sustituir un valor numérico en una letra (variable), respeta las operaciones indicadas.",
+        question: "Si la expresión algebraica es <i>3x + 5</i>, ¿qué valor se obtiene si la letra x vale 4?",
+        options: ["17", "12", "27", "15"],
+        answer: 0,
+        explanation: "<b>Paso 1:</b> Multiplicar 3 × 4 = 12.<br><b>Paso 2:</b> Sumar 5 = 12 + 5 = <b>17</b>."
+    },
+    {
+        subject: "Matemáticas",
+        module: "Módulo 4: Lenguaje Algebraico",
+        hint: "<b>Pista / Recordatorio:</b> En una ecuación con incógnita en ambos lados, agrupa las 'x' de un lado y los números independientes del otro.",
+        question: "Resuelve la ecuación lineal: <i>5x - 3 = 2x + 9</i>",
+        options: ["x = 2", "x = 4", "x = 6", "x = 3"],
+        answer: 1,
+        explanation: "<b>Paso 1:</b> 5x - 2x = 9 + 3 => 3x = 12.<br><b>Paso 2:</b> x = 12 ÷ 3 => <b>x = 4</b>."
+    },
+    {
+        subject: "Matemáticas",
+        module: "Módulo 5: Regla de Tres Directa e Inversa",
+        hint: "<b>Pista / Recordatorio:</b> En la regla de tres directa, multiplica cruzado y divide entre el número restante: $(Valor_2 \times Valor_3) ÷ Valor_1$.",
+        question: "Si 5 litros de gasolina rinden para recorrer 75 kilómetros en carretera, ¿cuántos kilómetros se podrán recorrer con un tanque lleno de 40 litros?",
+        options: ["500 km", "600 km", "450 km", "550 km"],
+        answer: 1,
+        explanation: "<b>Cálculo:</b> (40 litros × 75 km) ÷ 5 litros = 3,000 ÷ 5 = <b>600 km</b>."
+    },
+    {
+        subject: "Matemáticas",
+        module: "Módulo 5: Estadística Básica",
+        hint: "<b>Pista / Recordatorio:</b> La <b>Moda</b> es el valor o número que más se repite en un conjunto de datos estadísticos.",
+        question: "En una tienda se registraron las tallas de calzado vendidas en el día: 25, 26, 24, 26, 27, 26, 25, 26. ¿Cuál es la moda de las ventas?",
+        options: ["25", "27", "26", "24"],
+        answer: 2,
+        explanation: "La talla <b>26</b> es la que aparece más veces (se repite 4 ocasiones), por lo tanto es la moda."
+    },
 
     // --- LENGUA Y COMUNICACIÓN (ICHEA/INEA) ---
     {
@@ -585,6 +676,102 @@ const allQuestions = [
         answer: 1,
         explanation: "Las cartas o diarios contemporáneos al hecho histórico (1912) son <b>fuentes primarias</b> de primera mano."
     },
+    // --- LENGUA Y COMUNICACIÓN ---
+    {
+        subject: "Lengua y Comunicación",
+        module: "Ortografía y Gramática",
+        hint: "<b>Pista / Recordatorio:</b> Las palabras agudas llevan tilde si terminan en n, s o vocal. Las graves si terminan en consonante diferente a n o s.",
+        question: "¿Cuál de las siguientes palabras es un ejemplo clásico de palabra esdrújula?",
+        options: ["Camión", "Lápiz", "Brújula", "Pared"],
+        answer: 2,
+        explanation: "<b>Brújula</b> se acentúa en la antepenúltima sílaba (<b>brú</b>-ju-la) y cumple la regla de que todas las esdrújulas llevan tilde."
+    },
+    {
+        subject: "Lengua y Comunicación",
+        module: "Ortografía y Gramática",
+        hint: "<b>Pista / Recordatorio:</b> Se escriben con 'g' las palabras que empiezan o contienen la sílaba 'geo-', o terminan en '-logía'.",
+        question: "Elige la opción que completa correctamente la palabra: 'La biolo____ía estudia a los seres vivos.'",
+        options: ["j", "g", "cc", "x"],
+        answer: 1,
+        explanation: "La terminación científica correspondiente es <b>'-logía'</b>, escrita con la letra <b>g</b>."
+    },
+    {
+        subject: "Lengua y Comunicación",
+        module: "Ortografía y Gramática",
+        hint: "<b>Pista / Recordatorio:</b> El núcleo del sujeto es siempre un sustantivo o pronombre principal que concuerda con el verbo.",
+        question: "En la oración: 'El veloz caballo negro salta la cerca', ¿cuál es el núcleo del sujeto?",
+        options: ["veloz", "salta", "caballo", "cerca"],
+        answer: 2,
+        explanation: "El sujeto principal es 'El veloz caballo negro', y su palabra más importante (núcleo) es el sustantivo <b>caballo</b>."
+    },
+    {
+        subject: "Lengua y Comunicación",
+        module: "Ortografía y Gramática",
+        hint: "<b>Pista / Recordatorio:</b> El tiempo futuro indica una acción que todavía no ocurre pero que se llevará a cabo después.",
+        question: "Identifica el verbo conjugado en tiempo futuro simple:",
+        options: ["Cantaba", "Cantaré", "Canté", "Cante"],
+        answer: 1,
+        explanation: "<b>Cantaré</b> expresa una acción que se realizará posteriormente (futuro)."
+    },
+    {
+        subject: "Lengua y Comunicación",
+        module: "Ortografía y Gramática",
+        hint: "<b>Pista / Recordatorio:</b> Las preposiciones sirven para relacionar palabras dentro de una oración (ej. a, ante, bajo, con, contra, de, desde...).",
+        question: "En la oración: 'Viajamos en autobús rumbo a la ciudad de Chihuahua', ¿qué palabra cumple la función de preposición?",
+        options: ["autobús", "de", "ciudad", "viajamos"],
+        answer: 1,
+        explanation: "La palabra <b>de</b> funciona como preposición que conecta los sustantivos."
+    },
+    {
+        subject: "Lengua y Comunicación",
+        module: "Comprensión Lectora",
+        hint: "<b>Pista / Recordatorio:</b> La conclusión de un texto resume el cierre de las ideas analizadas a lo largo del documento.",
+        question: "¿Cuál es la función principal de la conclusión en un ensayo o texto informativo?",
+        options: [
+            "Plantear dudas nuevas sin resolver.",
+            "Resumir los puntos clave y cerrar la argumentación del tema expuesto.",
+            "Presentar los datos biográficos del autor.",
+            "Escribir una lista de chistes o anécdotas."
+        ],
+        answer: 1,
+        explanation: "La conclusión sintetiza el razonamiento final y los resultados principales del escrito."
+    },
+    {
+        subject: "Lengua y Comunicación",
+        module: "Comprensión Lectora",
+        hint: "<b>Pista / Recordatorio:</b> Un texto argumentativo busca persuadir al lector mediante opiniones respaldadas por razones lógicas.",
+        question: "¿Qué tipo de texto busca convencer o persuadir al lector sobre un punto de vista particular mediante razones y argumentos?",
+        options: ["Texto Argumentativo", "Texto Instructivo", "Texto Poético", "Texto Narrativo"],
+        answer: 0,
+        explanation: "El <b>texto argumentativo</b> defiende una tesis mediante argumentos lógicos para convencer al receptor."
+    },
+    {
+        subject: "Lengua y Comunicación",
+        module: "Comprensión Lectora",
+        hint: "<b>Pista / Recordatorio:</b> Los antónimos expresan significados opuestos o contrarios.",
+        question: "¿Cuál es el antónimo correcto de la palabra 'optimista'?",
+        options: ["Alegre", "Pesimista", "Positivo", "Entusiasta"],
+        answer: 1,
+        explanation: "<b>Pesimista</b> es la persona que tiende a ver el lado desfavorable de las cosas, siendo el opuesto directo de optimista."
+    },
+    {
+        subject: "Lengua y Comunicación",
+        module: "Ortografía y Gramática",
+        hint: "<b>Pista / Recordatorio:</b> El punto y coma (<b>;</b>) indica una pausa mayor que la coma pero menor que el punto, útil para separar oraciones compuestas largas.",
+        question: "¿Qué signo de puntuación se recomienda para separar oraciones sintácticamente independientes pero que guardan estrecha relación temática?",
+        options: ["La coma (,)", "El punto y coma (;)", "Los dos puntos (:)", "Las comillas (“ ”)"],
+        answer: 1,
+        explanation: "El <b>punto y coma</b> vincula frases relacionadas donde una coma se queda corta."
+    },
+    {
+        subject: "Lengua y Comunicación",
+        module: "Comprensión Lectora",
+        hint: "<b>Pista / Recordatorio:</b> Una paráfrasis consiste en explicar un texto utilizando nuestras propias palabras sin alterar la idea central del autor.",
+        question: "¿Cómo se le llama al ejercicio de explicar o reescribir un texto empleando palabras propias sin cambiar su mensaje original?",
+        options: ["Plagio literario", "Paráfrasis", "Traducción simultánea", "Resumen literal"],
+        answer: 1,
+        explanation: "La <b>paráfrasis</b> demuestra comprensión lectora al expresar con estilo propio el sentido de un texto."
+    },
 
     // --- CIENCIAS NATURALES (ICHEA/INEA) ---
     {
@@ -886,6 +1073,97 @@ const allQuestions = [
         options: ["Ox", "O", "Oxg", "Om"],
         answer: 1,
         explanation: "El símbolo químico del <b>Oxígeno</b> es simplemente la letra mayúscula <b>O</b>. Se trata de uno de los elementos indispensables para la vida y la combustión."
+    },
+    // --- CIENCIAS NATURALES ---
+    {
+        subject: "Ciencias Naturales",
+        module: "Biología Básica",
+        hint: "<b>Pista / Recordatorio:</b> Las células eucariotas se dividen principalmente en células animales y vegetales. Estas últimas poseen cloroplastos y pared celular.",
+        question: "¿Qué estructura rígida externa poseen exclusivamente las células vegetales para darles soporte y protección?",
+        options: ["Membrana plasmática", "Pared celular", "Núcleo", "Mitocondria"],
+        answer: 1,
+        explanation: "La <b>pared celular</b> de celulosa protege y da rigidez estructural a las células de las plantas."
+    },
+    {
+        subject: "Ciencias Naturales",
+        module: "Biología Básica",
+        hint: "<b>Pista / Recordatorio:</b> Las mitocondrias son conocidas como las 'centrales energéticas' de la célula porque generan ATP mediante la respiración.",
+        question: "¿Qué orgánulo celular se encarga de producir la mayor parte de la energía (ATP) necesaria para las funciones celulares?",
+        options: ["Mitocondria", "Ribosoma", "Vacuola", "Lisosoma"],
+        answer: 0,
+        explanation: "Las <b>mitocondrias</b> transforman los nutrientes en energía química aprovechable para la célula."
+    },
+    {
+        subject: "Ciencias Naturales",
+        module: "Cuerpo Humano y Salud",
+        hint: "<b>Pista / Recordatorio:</b> El sistema circulatorio transporta la sangre impulsada por el corazón a través de arterias y venas.",
+        question: "¿Cómo se llaman los vasos sanguíneos encargados de llevar la sangre oxigenada desde el corazón hacia todos los tejidos y órganos del cuerpo?",
+        options: ["Venas", "Arterias", "Capilares linfáticos", "Alvéolos"],
+        answer: 1,
+        explanation: "Las <b>arterias</b> transportan sangre rica en oxígeno y nutrientes impulsada directamente por los latidos cardíacos."
+    },
+    {
+        subject: "Ciencias Naturales",
+        module: "Cuerpo Humano y Salud",
+        hint: "<b>Pista / Recordatorio:</b> Los riñones actúan como filtros purificadores que eliminan los desechos de la sangre a través de la orina.",
+        question: "¿Cuál es el órgano principal del sistema urinario encargado de filtrar la sangre para eliminar urea y toxinas en forma de orina?",
+        options: ["Hígado", "Riñones", "Páncreas", "Vesícula biliar"],
+        answer: 1,
+        explanation: "Los <b>riñones</b> depuran constantemente la sangre regulando el agua y eliminando sustancias de desecho."
+    },
+    {
+        subject: "Ciencias Naturales",
+        module: "Cuerpo Humano y Salud",
+        hint: "<b>Pista / Recordatorio:</b> Las vitaminas y minerales se necesitan en pequeñas cantidades pero son vitales para prevenir enfermedades y regular funciones metabólicas.",
+        question: "¿Qué tipo de nutrimentos protegen al cuerpo previniendo enfermedades y regulando los procesos internos, encontrándose en frutas y verduras?",
+        options: ["Carbohidratos y grasas", "Vitaminas y minerales", "Proteínas pesadas", "Azúcares refinados"],
+        answer: 1,
+        explanation: "Las <b>vitaminas y minerales</b> actúan como reguladores bioquímicos indispensables para el sistema inmune y la salud."
+    },
+    {
+        subject: "Ciencias Naturales",
+        module: "Ecosistemas y Medio Ambiente",
+        hint: "<b>Pista / Recordatorio:</b> En una red alimentaria, los consumidores secundarios se alimentan de los herbívoros (consumidores primarios).",
+        question: "¿Cómo se les denomina a los animales carnívoros que se alimentan de herbívoros en una cadena trófica?",
+        options: ["Productores primarios", "Consumidores secundarios", "Descomponedores", "Organismos autótrofos"],
+        answer: 1,
+        explanation: "Los carnívoros ocupan el nivel de <b>consumidores secundarios</b> al depredar a los herbívoros."
+    },
+    {
+        subject: "Ciencias Naturales",
+        module: "Ecosistemas y Medio Ambiente",
+        hint: "<b>Pista / Recordatorio:</b> El reciclaje transforma residuos industriales o domésticos en materias primas reutilizables.",
+        question: "¿Qué proceso industrial permite recolectar materiales como aluminio, papel y vidrio para fundirlos o procesarlos y crear nuevos productos?",
+        options: ["Reutilización", "Reciclaje", "Combustión", "Sedimentación"],
+        answer: 1,
+        explanation: "El <b>reciclaje</b> somete los desechos a transformación física o química para reintegrarlos al ciclo productivo."
+    },
+    {
+        subject: "Ciencias Naturales",
+        module: "Física Básica",
+        hint: "<b>Pista / Recordatorio:</b> La temperatura de ebullición del agua pura a nivel del mar es de 100 grados Celsius.",
+        question: "¿A qué temperatura numérica en la escala Celsius hierve el agua pura bajo condiciones normales de presión atmosférica?",
+        options: ["0 °C", "50 °C", "100 °C", "212 °C"],
+        answer: 2,
+        explanation: "El agua cambia de estado líquido a vapor (ebullición) exactamente a los <b>100 °C</b>."
+    },
+    {
+        subject: "Ciencias Naturales",
+        module: "Física Básica",
+        hint: "<b>Pista / Recordatorio:</b> La energía cinética está asociada al movimiento de los cuerpos, mientras que la potencial depende de su posición.",
+        question: "¿Qué tipo de energía mecánica posee un objeto debido exclusivamente a su movimiento a una cierta velocidad?",
+        options: ["Energía Potencial", "Energía Cinética", "Energía Térmica", "Energía Química"],
+        answer: 1,
+        explanation: "La <b>energía cinética</b> es la energía que manifiesta un cuerpo en virtud de su movimiento."
+    },
+    {
+        subject: "Ciencias Naturales",
+        module: "Química Básica",
+        hint: "<b>Pista / Recordatorio:</b> Una solución química se compone de un soluto (lo que se disuelve) y un solvente (el medio disolvente, comúnmente agua).",
+        question: "En una mezcla de agua azucarada, ¿cómo se le llama técnicamente al azúcar que se disuelve por completo en el líquido?",
+        options: ["Solvente", "Soluto", "Precipitado", "Catalizador"],
+        answer: 1,
+        explanation: "El <b>soluto</b> es la sustancia minoritaria que se disuelve dentro del solvente líquido."
     },
 
     // --- CIENCIAS SOCIALES (ICHEA/INEA) ---
@@ -1189,5 +1467,106 @@ const allQuestions = [
         options: ["El Ejido", "La Latifundio", "La Encomienda", "El Feudo"],
         answer: 0,
         explanation: "El **Ejido** otorgó tierras a las comunidades campesinas para su explotación agrícola sin riesgo de ser despojados por terratenientes."
+    },
+    // --- CIENCIAS SOCIALES ---
+    {
+        subject: "Ciencias Sociales",
+        module: "Historia de México",
+        hint: "<b>Pista / Recordatorio:</b> La Constitución de 1857 fue promulgada durante el gobierno liberal de Ignacio Comonfort, con fuerte influencia de Benito Juárez.",
+        question: "¿Qué importante Constitución liberal se promulgó en el año de 1857 consagrando las garantías individuales de los ciudadanos?",
+        options: ["Constitución de Apatzingán", "Constitución de 1824", "Constitución de 1857", "Constitución de 1917"],
+        answer: 2,
+        explanation: "La <b>Constitución de 1857</b> estableció los derechos del hombre y fortaleció el régimen liberal frente al clero y los conservadores."
+    },
+    {
+        subject: "Ciencias Sociales",
+        module: "Historia de México",
+        hint: "<b>Pista / Recordatorio:</b> La Batalla de Puebla del 5 de mayo de 1862 enfrentó al ejército mexicano comandado por Ignacio Zaragoza contra las tropas invasoras francesas.",
+        question: "¿Qué general mexicano comandó heroicamente al ejército nacional para derrotar a las tropas francesas en la histórica Batalla de Puebla?",
+        options: ["Porfirio Díaz", "Ignacio Zaragoza", "Vicente Guerrero", "Mariano Matamoros"],
+        answer: 1,
+        explanation: "El general <b>Ignacio Zaragoza</b> dirigió la defensa patriótica que logró la victoria en Puebla el 5 de mayo de 1862."
+    },
+    {
+        subject: "Ciencias Sociales",
+        module: "Historia de México",
+        hint: "<b>Pista / Recordatorio:</b> El Plan de San Luis fue promulgado por Francisco I. Madero en 1910 para convocar al pueblo a levantarse en armas contra la dictadura porfirista.",
+        question: "¿Qué plan político redactado por Francisco I. Madero convocaba a la población mexicana a levantarse en armas el 20 de noviembre de 1910?",
+        options: ["Plan de Ayala", "Plan de San Luis", "Plan de Agua Prieta", "Plan de Tuxtepec"],
+        answer: 1,
+        explanation: "El <b>Plan de San Luis</b> proclamaba el sufragio efectivo, la no reelección y el levantamiento armado contra Porfirio Díaz."
+    },
+    {
+        subject: "Ciencias Sociales",
+        module: "Geografía",
+        hint: "<b>Pista / Recordatorio:</b> El relieve terrestre incluye montañas, mesetas, llanuras y depresiones modificadas por la erosión.",
+        question: "¿Cómo se denominan las formas de la superficie terrestre caracterizadas por grandes extensiones planas ubicadas a baja altitud cerca de las costas?",
+        options: ["Mesetas o altiplanos", "Llanuras costeras", "Sierras nevadas", "Depresiones profundas"],
+        answer: 1,
+        explanation: "Las <b>llanuras costeras</b> son planicies amplias situadas a nivel del mar."
+    },
+    {
+        subject: "Ciencias Sociales",
+        module: "Geografía",
+        hint: "<b>Pista / Recordatorio:</b> La densidad de población mide cuántos habitantes viven en promedio por kilómetro cuadrado.",
+        question: "¿Qué indicador demográfico mide la concentración promedio de habitantes que viven por cada kilómetro cuadrado en un territorio?",
+        options: ["Tasa de natalidad", "Densidad de población", "Índice de migración", "Esperanza de vida"],
+        answer: 1,
+        explanation: "La <b>densidad de población</b> se calcula dividiendo el número total de habitantes entre la superficie territorial en km²."
+    },
+    {
+        subject: "Ciencias Sociales",
+        module: "Geografía",
+        hint: "<b>Pista / Recordatorio:</b> Las actividades secundarias transforman las materias primas en productos manufacturados (industria, manufactura, construcción).",
+        question: "¿A qué sector de la economía pertenecen las fábricas de automóviles, la industria textil y la construcción de viviendas?",
+        options: ["Sector Primario", "Sector Secundario", "Sector Terciario", "Sector Agropecuario"],
+        answer: 1,
+        explanation: "El <b>Sector Secundario</b> se enfoca en la transformación industrial de materias primas."
+    },
+    {
+        subject: "Ciencias Sociales",
+        module: "Formación Cívica y Ética",
+        hint: "<b>Pista / Recordatorio:</b> El Artículo 123 constitucional protege los derechos laborales, jornada máxima y salario mínimo.",
+        question: "¿Qué artículo constitucional consagra los derechos de los trabajadores, la jornada laboral de 8 horas y el derecho a huelga en México?",
+        options: ["Artículo 3º", "Artículo 27º", "Artículo 123º", "Artículo 130º"],
+        answer: 2,
+        explanation: "El <b>Artículo 123º</b> regula las relaciones laborales y protege las garantías sociales de la clase trabajadora."
+    },
+    {
+        subject: "Ciencias Sociales",
+        module: "Formación Cívica y Ética",
+        hint: "<b>Pista / Recordatorio:</b> Los poderes de la Unión se dividen para garantizar equilibrios y evitar el abuso de autoridad.",
+        question: "¿Qué poder de la Unión en México es depositado en la Suprema Corte de Justicia de la Nación y tribunales colegiados para impartir justicia?",
+        options: ["Poder Ejecutivo", "Poder Legislativo", "Poder Judicial", "Poder Ciudadano"],
+        answer: 2,
+        explanation: "El <b>Poder Judicial de la Federación</b> vigila el cumplimiento de la Constitución y administra la justicia en el país."
+    },
+    {
+        subject: "Ciencias Sociales",
+        module: "Formación Cívica y Ética",
+        hint: "<b>Pista / Recordatorio:</b> Los derechos humanos son inalienables, lo que significa que no se pueden quitar ni negociar bajo ninguna circunstancia.",
+        question: "¿Qué significa que los Derechos Humanos sean considerados 'inalienables'?",
+        options: [
+            "Que cambian de valor dependiendo del país donde vivas.",
+            "Que ninguna autoridad ni persona puede quitártelos, venderlos o renunciar a ellos.",
+            "Que únicamente aplican para los ciudadanos mayores de edad.",
+            "Que caducan al cumplir un determinado periodo de años."
+        ],
+        answer: 1,
+        explanation: "Ser <b>inalienables</b> implica que son inherentes a la persona y no pueden enajenarse, cederse ni arrebatarse."
+    },
+    {
+        subject: "Ciencias Sociales",
+        module: "Formación Cívica y Ética",
+        hint: "<b>Pista / Recordatorio:</b> La participación ciudadana fortalece la vida democrática más allá de emitir un voto en las urnas electorales.",
+        question: "¿Cuál de las siguientes acciones demuestra una participación ciudadana activa y responsable en una comunidad?",
+        options: [
+            "Ignorar los problemas del vecindario y esperar que otros los resuelvan.",
+            "Organizarse con los vecinos para mejorar la seguridad, limpieza y servicios de la colonia.",
+            "Destruir el mobiliario urbano de los parques públicos.",
+            "No informarse sobre las propuestas de los gobernantes."
+        ],
+        answer: 1,
+        explanation: "La organización comunitaria colaborativa es una muestra ejemplar de responsabilidad y participación ciudadana democrática."
     }
 ];
