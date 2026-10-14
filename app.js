@@ -12,6 +12,7 @@ let selectedPracticeTopic = "";
 let isReviewMode = false;
 let studentName = "";
 
+
 // --- ELEMENTOS DEL DOM ---
 const welcomeScreen = document.getElementById("welcome-screen");
 const quizScreen = document.getElementById("quiz-screen");
@@ -287,6 +288,31 @@ function showResultsScreen() {
 
     const total = currentQuestions.length;
     const porcentaje = Math.round((correctCount / total) * 100);
+
+    // --- NUEVO: Efecto de Confeti Versión 2.0 ---
+    if (porcentaje >= 60 && typeof confetti === "function") {
+        confetti({
+            particleCount: 150,
+            spread: 80,
+            origin: { y: 0.6 }
+        });
+
+        // Un segundo disparo lateral para darle más dinamismo festivo
+        setTimeout(() => {
+            confetti({
+                particleCount: 80,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 }
+            });
+            confetti({
+                particleCount: 80,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 }
+            });
+        }, 400);
+    }
 
     document.getElementById("score-text").innerText = `${correctCount} / ${total}`;
     document.getElementById("percentage-text").innerText = `${porcentaje}%`;
