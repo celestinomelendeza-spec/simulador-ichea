@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 
 <!-- Librería de Confeti para la Versión 2.0 -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma de Estudio e ICHEA / INEA - Secundaria</title>
+    <title>Plataforma de Estudio ICHEA / INEA - Secundaria</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -19,10 +19,12 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0f172a;
-            /* Slate 900 */
-            color: #f1f5f9;
-            /* Slate 100 */
+            background-color: #090d16;
+            color: #e2e8f0;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(30, 27, 75, 0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.4) 0px, transparent 50%);
+            background-attachment: fixed;
         }
 
         h1,
@@ -32,70 +34,71 @@
             font-family: 'Outfit', sans-serif;
         }
 
-        /* Header Gradiente Oscuro Neón */
+        /* Header con efecto de brillo superior */
         .gradient-header {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311b92 100%);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
-        /* Tarjetas estilo Glassmorphism Oscuro */
+        /* Tarjetas estilo Glassmorphism Pro con bordes de luz */
         .glass-card {
-            background: rgba(30, 41, 59, 0.85);
-            /* Slate 800 */
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        /* Estilos de las Tarjetas de Opciones */
+        /* Tarjetas de Opciones Elegantes */
         .option-card {
-            background-color: #334155 !important;
-            /* Slate 700 */
-            border-color: #475569 !important;
-            /* Slate 600 */
-            color: #f8fafc !important;
-            transition: all 0.2s ease-in-out;
+            background-color: rgba(30, 41, 59, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #f1f5f9 !important;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .option-card:hover {
             transform: translateY(-2px);
-            border-color: #38bdf8 !important;
-            /* Sky 400 */
-            background-color: #1e293b !important;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+            border-color: rgba(56, 189, 248, 0.5) !important;
+            background-color: rgba(30, 41, 59, 0.9) !important;
+            box-shadow: 0 8px 25px -5px rgba(56, 189, 248, 0.15);
         }
 
         .option-selected {
             border-color: #38bdf8 !important;
-            background: linear-gradient(to right, #0369a1, #0284c7) !important;
+            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%) !important;
             color: #ffffff !important;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4) !important;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.35) !important;
             font-weight: 600;
         }
 
-        /* Estilos de inputs y selectores en modo oscuro */
+        /* Inputs y Selectores Profesionales */
         select,
         input {
-            background-color: #1e293b !important;
+            background-color: rgba(15, 23, 42, 0.8) !important;
             color: #f8fafc !important;
-            border-color: #475569 !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            transition: all 0.2s ease;
         }
 
         select:focus,
         input:focus {
             border-color: #38bdf8 !important;
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2) !important;
+            outline: none;
         }
 
-        /* Pista con brillo suave */
-        #hint-box {
-            animation: fadeIn 0.3s ease-in-out;
+        /* Animaciones suaves */
+        #hint-box,
+        #feedback-box {
+            animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(-6px);
+                transform: translateY(-8px);
             }
 
             to {
@@ -106,28 +109,29 @@
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
 
     <!-- Header / Navbar -->
-    <header class="gradient-header text-white shadow-2xl sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-2">
-            <div class="flex items-center space-x-3.5">
+    <header class="gradient-header text-white sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3.5 flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
                 <div
-                    class="bg-indigo-500/20 p-2.5 rounded-2xl border border-indigo-400/30 backdrop-blur-md shadow-inner">
-                    <i class="fa-solid fa-graduation-cap text-2xl text-amber-400 animate-bounce"></i>
+                    class="bg-gradient-to-tr from-indigo-600 to-sky-500 p-2.5 rounded-2xl shadow-lg shadow-indigo-500/20 border border-indigo-400/30">
+                    <i class="fa-solid fa-graduation-cap text-xl text-amber-300"></i>
                 </div>
                 <div>
-                    <h1 class="font-extrabold text-xl md:text-2xl tracking-tight text-white flex items-center gap-2">
-                        Plataforma ICHEA <span
-                            class="bg-amber-400 text-slate-950 text-[10px] uppercase font-black px-2 py-0.5 rounded-full tracking-wider">Secundaria</span>
+                    <h1 class="font-extrabold text-base md:text-lg tracking-tight text-white flex items-center gap-2">
+                        Plataforma ICHEA
+                        <span
+                            class="bg-amber-400/10 border border-amber-400/30 text-amber-300 text-[10px] uppercase font-black px-2 py-0.5 rounded-full tracking-wider">Secundaria</span>
                     </h1>
-                    <p class="text-xs text-indigo-300 font-medium">Estudio Interactivo & Diagnóstico Oficial</p>
+                    <p class="text-[11px] text-slate-400 font-medium">Estudio Interactivo & Diagnóstico Oficial</p>
                 </div>
             </div>
             <div id="user-badge"
-                class="hidden bg-slate-800/80 text-white border border-slate-700 px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm">
-                <i class="fa-solid fa-circle-user mr-1.5 text-amber-400"></i> <span
-                    id="user-badge-name">Estudiante</span>
+                class="hidden bg-slate-800/90 text-slate-200 border border-slate-700/80 px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm flex items-center gap-2">
+                <i class="fa-solid fa-circle-user text-amber-400 text-sm"></i>
+                <span id="user-badge-name" class="font-bold text-white">Estudiante</span>
             </div>
         </div>
     </header>
@@ -136,125 +140,126 @@
     <main class="max-w-4xl mx-auto w-full px-4 py-8 flex-grow">
 
         <!-- SCREEN 1: Welcome & Setup -->
-        <div id="welcome-screen" class="glass-card rounded-3xl p-6 md:p-10 space-y-8">
+        <div id="welcome-screen" class="glass-card rounded-3xl p-6 md:p-10 space-y-8 relative overflow-hidden">
+            <!-- Destello decorativo de fondo -->
+            <div class="absolute -top-24 -right-24 w-72 h-72 bg-sky-500/10 rounded-full blur-3xl pointer-events-none">
+            </div>
+            <div
+                class="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none">
+            </div>
 
-            <div class="text-center max-w-2xl mx-auto space-y-3">
+            <div class="text-center max-w-2xl mx-auto space-y-3 relative z-10">
                 <div
-                    class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white shadow-lg shadow-sky-500/20 mb-2">
-                    <i class="fa-solid fa-rocket text-3xl text-amber-300"></i>
+                    class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-tr from-sky-500 via-indigo-600 to-purple-600 text-white shadow-xl shadow-sky-500/20 mb-2 border border-white/10">
+                    <i class="fa-solid fa-rocket text-2xl text-amber-300"></i>
                 </div>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">¡Hola! Prepara tu Secundaria
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+                    Prepara tu <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">Secundaria</span>
                 </h2>
-                <p class="text-slate-300 text-sm md:text-base leading-relaxed">
-                    Escribe tu nombre para guardar tus avances y selecciona la materia o módulo que quieras repasar hoy.
+                <p class="text-slate-300 text-sm md:text-base leading-relaxed font-light">
+                    Ingresa tu nombre para registrar tu progreso y selecciona el modo de estudio oficial que deseas
+                    repasar hoy.
                 </p>
             </div>
 
             <!-- Campo de Nombre -->
-            <div class="max-w-md mx-auto bg-slate-900/60 p-5 rounded-2xl border border-slate-700 space-y-2.5">
+            <div
+                class="max-w-md mx-auto bg-slate-900/60 p-5 rounded-2xl border border-slate-800/80 space-y-2 relative z-10 shadow-inner">
                 <label for="student-name-input" class="block text-xs font-bold text-sky-400 uppercase tracking-wider">
-                    <i class="fa-solid fa-id-card mr-1.5"></i> Nombre del Estudiante:
+                    <i class="fa-solid fa-id-card mr-1.5 text-sky-400"></i> Nombre del Estudiante:
                 </label>
                 <div class="relative">
-                    <input type="text" id="student-name-input" placeholder="Ej. Ana Meléndez"
-                        class="w-full pl-11 pr-4 py-3.5 rounded-xl outline-none text-white text-sm font-semibold transition-all">
-                    <i class="fa-solid fa-user text-slate-400 absolute left-4 top-4"></i>
+                    <input type="text" id="student-name-input" placeholder="Ej. Celestino Meléndez"
+                        class="w-full pl-11 pr-4 py-3.5 rounded-xl text-white text-sm font-medium">
+                    <i class="fa-solid fa-user text-slate-500 absolute left-4 top-4"></i>
                 </div>
             </div>
 
             <!-- Selección de Modo -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto relative z-10">
 
                 <!-- Tarjeta Modo Práctica -->
                 <div
-                    class="bg-slate-800/90 border-2 border-emerald-500/40 hover:border-emerald-400 p-6 rounded-3xl flex flex-col justify-between transition-all shadow-lg group">
-                    <div class="space-y-3">
+                    class="glass-card border border-emerald-500/30 hover:border-emerald-400/60 p-6 rounded-3xl flex flex-col justify-between transition-all shadow-xl group">
+                    <div class="space-y-4">
                         <div
-                            class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center text-xl shadow-md shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                            class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center text-lg shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform border border-emerald-400/30">
                             <i class="fa-solid fa-book-open"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-emerald-400">Modo Práctica / Estudio</h3>
-                        <p class="text-xs text-slate-300 leading-relaxed">
-                            Repasa preguntas con <strong>pistas opcionales</strong> y <strong>explicación guiada paso a
-                                paso</strong>. Ideal para aprender sin presión.
-                        </p>
+                        <div>
+                            <h3 class="text-lg font-bold text-emerald-400">Modo Práctica / Estudio</h3>
+                            <p class="text-xs text-slate-300 leading-relaxed mt-1">
+                                Repasa con <strong>pistas opcionales</strong> y <strong>explicaciones paso a
+                                    paso</strong> para afianzar tus conocimientos sin presiones.
+                            </p>
+                        </div>
                     </div>
 
-                    <div class="mt-6 space-y-2.5">
+                    <div class="mt-6 space-y-3">
                         <label class="block text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Selecciona
                             Tema o Módulo:</label>
                         <select id="practice-subject-select"
-                            class="w-full p-3 text-xs rounded-xl outline-none font-semibold text-slate-100 bg-slate-900 border border-slate-600 focus:border-sky-400">
-                            <option value="Todas" class="font-bold text-amber-300">
-                                🌟 TODAS LAS MATERIAS COMBINADAS (20 Preguntas)
+                            class="w-full p-3 text-xs rounded-xl font-medium text-slate-200">
+                            <option value="Todas" class="font-bold text-amber-300">🌟 TODAS LAS MATERIAS (Banco General)
                             </option>
-
-                            <optgroup label="━━━━━━━━  📐 MATERIAS GENERALES (10 Preguntas)  ━━━━━━━━">
+                            <optgroup label="── MATERIAS GENERALES ──">
                                 <option value="Matemáticas">📘 Matemáticas</option>
-                                <option value="Lengua y Comunicación">📙 Lengua y Comunicación
-                                </option>
+                                <option value="Lengua y Comunicación">📙 Lengua y Comunicación</option>
                                 <option value="Ciencias Naturales">🟢 Ciencias Naturales</option>
                                 <option value="Ciencias Sociales">🟣 Ciencias Sociales</option>
                             </optgroup>
-
-                            <optgroup label="━━━━━━━━  🧮 MATEMÁTICAS - MÓDULOS INEA (5 Preguntas)  ━━━━━━━━">
-                                <option value="Módulo 3: Fracciones y Operaciones">🔹 Fracciones y
-                                    Operaciones</option>
-                                <option value="Módulo 3: Porcentajes e Interés">🔹 Porcentajes e IVA
-                                </option>
-                                <option value="Módulo 4: Áreas y Perímetros">🔹 Geometría (Áreas y
-                                    Perímetros)</option>
+                            <optgroup label="── MATEMÁTICAS (Módulos INEA) ──">
+                                <option value="Módulo 3: Fracciones y Operaciones">🔹 Fracciones y Operaciones</option>
+                                <option value="Módulo 3: Porcentajes e Interés">🔹 Porcentajes e IVA</option>
+                                <option value="Módulo 4: Áreas y Perímetros">🔹 Geometría y Áreas</option>
                                 <option value="Módulo 4: Lenguaje Algebraico">🔹 Álgebra Básica</option>
-                                <option value="Módulo 5: Regla de Tres Directa e Inversa">🔹 Regla de Tres
-                                </option>
+                                <option value="Módulo 5: Regla de Tres Directa e Inversa">🔹 Regla de Tres</option>
                             </optgroup>
-
-                            <optgroup label="━━━━━━━━  📚 LENGUA - MÓDULOS INEA (5 Preguntas)  ━━━━━━━━">
+                            <optgroup label="── LENGUA (Módulos INEA) ──">
                                 <option value="Ortografía y Gramática">🔸 Ortografía y Gramática</option>
-                                <option value="Comprensión Lectora">🔸 Comprensión Lectora y Textos
-                                </option>
+                                <option value="Comprensión Lectora">🔸 Comprensión Lectora</option>
                             </optgroup>
-
-                            <optgroup label="━━━━━━━━  🔬 CIENCIAS NATURALES - MÓDULOS INEA (5 Preguntas)  ━━━━━━━━">
+                            <optgroup label="── CIENCIAS NATURALES (Módulos INEA) ──">
                                 <option value="Cuerpo Humano y Salud">🟢 Cuerpo Humano y Salud</option>
                                 <option value="Biología Básica">🟢 Biología y Medio Ambiente</option>
                                 <option value="Física Básica">🟢 Física y Movimiento</option>
                                 <option value="Química Básica">🟢 Química y Materia</option>
                             </optgroup>
-
-                            <optgroup label="━━━━━━━━  🌎 CIENCIAS SOCIALES - MÓDULOS INEA (5 Preguntas)  ━━━━━━━━">
+                            <optgroup label="── CIENCIAS SOCIALES (Módulos INEA) ──">
                                 <option value="Historia de México">🟣 Historia de México</option>
                                 <option value="Geografía">🟣 Geografía de México y el Mundo</option>
-                                <option value="Formación Cívica y Ética">🟣 Civismo, Constitución y
-                                    Derechos</option>
+                                <option value="Formación Cívica y Ética">🟣 Civismo y Constitución</option>
                             </optgroup>
                         </select>
                         <button id="start-practice-btn"
-                            class="w-full mt-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3.5 rounded-xl text-sm shadow-lg shadow-emerald-900/40 transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-lightbulb text-amber-300"></i> Iniciar Modo Práctica
+                            class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-emerald-900/30 transition-all flex items-center justify-center gap-2 border border-emerald-400/30">
+                            <i class="fa-solid fa-lightbulb text-amber-300 text-sm"></i> Iniciar Modo Práctica
                         </button>
                     </div>
                 </div>
 
                 <!-- Tarjeta Modo Examen -->
                 <div
-                    class="bg-slate-800/90 border-2 border-sky-500/40 hover:border-sky-400 p-6 rounded-3xl flex flex-col justify-between transition-all shadow-lg group">
-                    <div class="space-y-3">
+                    class="glass-card border border-sky-500/30 hover:border-sky-400/60 p-6 rounded-3xl flex flex-col justify-between transition-all shadow-xl group">
+                    <div class="space-y-4">
                         <div
-                            class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white flex items-center justify-center text-xl shadow-md shadow-sky-500/30 group-hover:scale-110 transition-transform">
+                            class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white flex items-center justify-center text-lg shadow-lg shadow-sky-500/20 group-hover:scale-110 transition-transform border border-sky-400/30">
                             <i class="fa-solid fa-stopwatch"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-sky-400">Examen de Diagnóstico</h3>
-                        <p class="text-xs text-slate-300 leading-relaxed">
-                            Ponte a prueba con <strong>cronómetro activo</strong>. Al finalizar se califica tu intento y
-                            se guardan tus aciertos en la hoja de registro.
-                        </p>
+                        <div>
+                            <h3 class="text-lg font-bold text-sky-400">Examen de Diagnóstico</h3>
+                            <p class="text-xs text-slate-300 leading-relaxed mt-1">
+                                Evalúa tus conocimientos con <strong>cronómetro activo</strong> y simulación oficial de
+                                examen para medir tu nivel real.
+                            </p>
+                        </div>
                     </div>
 
-                    <div class="mt-6 space-y-2.5">
+                    <div class="mt-6 space-y-3">
                         <label class="block text-[11px] font-bold text-sky-400 uppercase tracking-wider">Tipo de
                             Examen:</label>
-                        <select id="exam-type-select" class="w-full p-3 text-xs rounded-xl outline-none font-medium">
+                        <select id="exam-type-select" class="w-full p-3 text-xs rounded-xl font-medium text-slate-200">
                             <option value="Global">🏆 Examen Global Completo (30 preguntas)</option>
                             <option value="Matemáticas">📝 Examen Corto - Matemáticas (15 preguntas)</option>
                             <option value="Lengua y Comunicación">📝 Examen Corto - Lengua y Comunicación (15 preguntas)
@@ -265,8 +270,8 @@
                             </option>
                         </select>
                         <button id="start-exam-btn"
-                            class="w-full mt-2 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold py-3.5 rounded-xl text-sm shadow-lg shadow-sky-900/40 transition-all flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-play"></i> Comenzar Examen
+                            class="w-full bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold py-3.5 rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-sky-900/30 transition-all flex items-center justify-center gap-2 border border-sky-400/30">
+                            <i class="fa-solid fa-play text-xs"></i> Comenzar Examen
                         </button>
                     </div>
                 </div>
@@ -282,59 +287,60 @@
                         <span id="quiz-mode-title" class="uppercase tracking-wider text-sky-400">Modo Examen</span>
                         <span id="progress-text" class="text-slate-200 font-semibold">Pregunta 1</span>
                     </div>
-                    <div class="w-full bg-slate-900 rounded-full h-3 overflow-hidden p-0.5 border border-slate-700">
+                    <div
+                        class="w-full bg-slate-900/80 rounded-full h-2.5 overflow-hidden p-0.5 border border-slate-800">
                         <div id="progress-bar"
-                            class="bg-gradient-to-r from-sky-400 to-indigo-500 h-2 rounded-full transition-all duration-300 w-[5%] shadow-sm">
+                            class="bg-gradient-to-r from-sky-400 to-indigo-500 h-1.5 rounded-full transition-all duration-300 w-[5%] shadow-sm">
                         </div>
                     </div>
                 </div>
                 <div id="timer-box"
-                    class="flex items-center justify-between w-full md:w-auto space-x-3 border-t md:border-t-0 pt-2 md:pt-0 border-slate-700">
+                    class="flex items-center justify-between w-full md:w-auto space-x-3 border-t md:border-t-0 pt-2 md:pt-0 border-slate-800">
                     <div
-                        class="bg-indigo-950/80 border border-indigo-500/40 text-indigo-200 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center">
+                        class="bg-indigo-950/80 border border-indigo-500/30 text-indigo-200 px-4 py-2 rounded-xl text-xs font-bold flex items-center shadow-inner">
                         <i class="fa-regular fa-clock mr-2 text-amber-400 animate-pulse text-sm"></i>
-                        <span id="timer-display" class="font-mono text-sm">00:00</span>
+                        <span id="timer-display" class="font-mono text-sm tracking-wide">00:00</span>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6">
-                <div class="flex items-center justify-between border-b border-slate-700/80 pb-4">
+            <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 relative overflow-hidden">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
                     <span id="question-subject"
-                        class="bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 text-xs font-extrabold px-3.5 py-1.5 rounded-full uppercase tracking-wide">
+                        class="bg-indigo-500/15 text-indigo-300 border border-indigo-400/30 text-xs font-extrabold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
                         Matemáticas
                     </span>
-                    <span id="question-id-tag" class="text-xs text-slate-400 font-mono font-bold">Reactivo #1</span>
+                    <span id="question-id-tag"
+                        class="text-xs text-slate-400 font-mono font-bold bg-slate-900/60 px-2.5 py-1 rounded-lg border border-slate-800">Reactivo
+                        #1</span>
                 </div>
 
                 <div id="hint-wrapper" class="hidden">
                     <button id="toggle-hint-btn" type="button"
-                        class="text-xs font-bold text-amber-300 bg-amber-950/50 border border-amber-500/40 hover:bg-amber-900/60 px-4 py-2.5 rounded-2xl transition-all flex items-center gap-2 shadow-sm">
-                        <i class="fa-solid fa-lightbulb text-amber-400 text-base"></i> ¿No recuerdas este tema? Toca
-                        aquí para ver una pista
+                        class="text-xs font-bold text-amber-300 bg-amber-950/40 border border-amber-500/30 hover:bg-amber-900/50 px-4 py-2.5 rounded-2xl transition-all flex items-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-lightbulb text-amber-400 text-sm"></i> ¿Dudas con este tema? Toca aquí
+                        para ver una pista
                     </button>
                     <div id="hint-box"
-                        class="hidden mt-3 p-4 bg-slate-900/90 border border-amber-500/30 rounded-2xl text-xs md:text-sm text-amber-200 leading-relaxed shadow-inner">
-                        <!-- Llenado dinámico por JS -->
+                        class="hidden mt-3 p-4 bg-slate-900/90 border border-amber-500/20 rounded-2xl text-xs md:text-sm text-amber-200/90 leading-relaxed shadow-inner">
                     </div>
                 </div>
 
                 <h3 id="question-text" class="text-lg md:text-xl font-bold text-white leading-snug">
-                    ¿Cargando pregunta...?
+                    Cargando pregunta...
                 </h3>
 
                 <div id="options-container" class="space-y-3.5"></div>
 
-                <!-- CAMBIA ESTO EN INDEX.HTML -->
                 <div id="feedback-box"
-                    class="hidden p-5 rounded-2xl text-sm space-y-2 bg-slate-900/90 border border-slate-700 shadow-md">
+                    class="hidden p-5 rounded-2xl text-sm space-y-2 bg-slate-900/90 border border-slate-800 shadow-lg">
                     <div id="feedback-title" class="font-bold flex items-center gap-2 text-base"></div>
-                    <p id="feedback-text" class="text-slate-200 text-xs md:text-sm leading-relaxed"></p>
+                    <p id="feedback-text" class="text-slate-300 text-xs md:text-sm leading-relaxed"></p>
                 </div>
 
-                <div class="flex justify-between items-center pt-5 border-t border-slate-700/80">
+                <div class="flex justify-between items-center pt-5 border-t border-slate-800">
                     <button id="prev-btn"
-                        class="px-5 py-2.5 rounded-xl border border-slate-600 text-slate-300 font-bold text-xs md:text-sm hover:bg-slate-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed">
+                        class="px-5 py-2.5 rounded-xl border border-slate-700 text-slate-300 font-bold text-xs md:text-sm hover:bg-slate-800/80 transition-all disabled:opacity-30 disabled:cursor-not-allowed">
                         <i class="fa-solid fa-arrow-left mr-2"></i> Anterior
                     </button>
                     <button id="next-btn" disabled
@@ -347,37 +353,37 @@
 
         <!-- SCREEN 3: Results Dashboard -->
         <div id="results-screen" class="hidden space-y-6">
-            <div class="glass-card rounded-3xl p-6 md:p-10 text-center space-y-8">
+            <div class="glass-card rounded-3xl p-6 md:p-10 text-center space-y-8 relative overflow-hidden">
 
                 <div
-                    class="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white ring-8 ring-indigo-950 shadow-2xl">
-                    <i class="fa-solid fa-trophy text-4xl text-amber-300"></i>
+                    class="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-tr from-sky-500 via-indigo-600 to-purple-600 text-white ring-8 ring-slate-900 shadow-2xl border border-white/10">
+                    <i class="fa-solid fa-trophy text-3xl text-amber-300"></i>
                 </div>
 
                 <div>
                     <h2 class="text-3xl font-extrabold text-white">Resultado del Diagnóstico</h2>
                     <p class="text-slate-400 text-sm mt-1">Estudiante: <strong id="result-student-name"
-                            class="text-sky-400">---</strong></p>
+                            class="text-sky-400 font-semibold">---</strong></p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto">
-                    <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-700 shadow-sm">
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 shadow-sm">
                         <span class="text-[11px] text-slate-400 uppercase tracking-wider font-extrabold">Aciertos
                             Totales</span>
                         <div class="text-3xl font-extrabold text-white mt-1" id="score-text">0 / 0</div>
                     </div>
-                    <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-700 shadow-sm">
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 shadow-sm">
                         <span
                             class="text-[11px] text-slate-400 uppercase tracking-wider font-extrabold">Calificación</span>
                         <div class="text-3xl font-extrabold text-sky-400 mt-1" id="percentage-text">0%</div>
                     </div>
-                    <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-700 shadow-sm">
+                    <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 shadow-sm">
                         <span class="text-[11px] text-slate-400 uppercase tracking-wider font-extrabold">Estado</span>
                         <div class="text-sm font-extrabold mt-3 text-emerald-400" id="status-badge">Completado</div>
                     </div>
                 </div>
 
-                <div class="text-left space-y-4 pt-4 border-t border-slate-700/80">
+                <div class="text-left space-y-4 pt-4 border-t border-slate-800">
                     <h4 class="font-bold text-slate-200 text-sm flex items-center">
                         <i class="fa-solid fa-chart-pie mr-2 text-sky-400 text-base"></i> Desempeño por Materia:
                     </h4>
@@ -385,7 +391,7 @@
                 </div>
 
                 <div id="recommendation-box"
-                    class="bg-slate-900/90 border border-sky-500/30 p-5 rounded-2xl text-left text-sm text-sky-200 space-y-1.5 shadow-inner">
+                    class="bg-slate-900/80 border border-sky-500/20 p-5 rounded-2xl text-left text-sm text-sky-200 space-y-1.5 shadow-inner">
                     <div class="font-bold flex items-center text-sky-300">
                         <i class="fa-solid fa-lightbulb text-amber-400 mr-2 text-base"></i> Recomendación de Estudio:
                     </div>
@@ -394,11 +400,11 @@
 
                 <div class="flex flex-wrap justify-center gap-4 pt-4">
                     <button id="restart-btn"
-                        class="bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold px-7 py-3 rounded-2xl shadow-lg transition-all text-sm">
+                        class="bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold px-7 py-3 rounded-2xl shadow-lg transition-all text-xs uppercase tracking-wider border border-sky-400/30">
                         <i class="fa-solid fa-house mr-2"></i> Menú Principal
                     </button>
                     <button id="review-btn"
-                        class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-7 py-3 rounded-2xl border border-slate-600 transition-all text-sm shadow-sm">
+                        class="bg-slate-800 hover:bg-slate-700/80 text-slate-200 font-bold px-7 py-3 rounded-2xl border border-slate-700 transition-all text-xs uppercase tracking-wider shadow-sm">
                         <i class="fa-solid fa-eye mr-2 text-sky-400"></i> Repasar Respuestas
                     </button>
                 </div>
@@ -408,7 +414,7 @@
     </main>
 
     <footer
-        class="bg-slate-950/80 border-t border-slate-800 py-4 text-center text-xs text-slate-400 font-medium backdrop-blur-md">
+        class="bg-slate-950/90 border-t border-slate-900 py-4 text-center text-xs text-slate-500 font-medium backdrop-blur-md">
         <div class="max-w-4xl mx-auto px-4">
             <p>Plataforma de Estudio e ICHEA / INEA — Material Educativo de Preparación Secundaria</p>
         </div>
