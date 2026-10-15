@@ -13,6 +13,64 @@ let isReviewMode = false;
 let studentName = "";
 
 
+// --- SISTEMA DE LOGROS Y RACHAS (GAMIFICACIÓN) ---
+const availableAchievements = [
+    { id: 'first_step', name: 'Primer Paso', desc: 'Completar tu primer cuestionario o examen.', icon: 'fa-shoe-prints' },
+    { id: 'century', name: 'Mente Brillante', desc: 'Obtener un 100% de aciertos en una sesión.', icon: 'fa-brain' }
+];
+
+function getSavedAchievements() {
+    const saved = localStorage.getItem('ichea_achievements');
+    return saved ? JSON.parse(saved) : [];
+}
+
+function unlockAchievement(achievementId) {
+    let unlocked = getSavedAchievements();
+    if (!unlocked.includes(achievementId)) {
+        unlocked.push(achievementId);
+        localStorage.setItem('ichea_achievements', JSON.stringify(unlocked));
+
+        const achievement = availableAchievements.find(a => a.id === achievementId);
+        if (achievement) {
+            showAchievementNotification(achievement);
+        }
+    }
+}
+
+function showAchievementNotification(achievement) {
+    const existing = document.getElementById('achievement-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'achievement-toast';
+    toast.className = 'fixed bottom-5 right-5 z-50 bg-slate-900/95 border border-amber-500/50 text-white px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3.5 backdrop-blur-xl transition-all animate-bounce';
+    toast.innerHTML = `
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-lg">
+            <i class="fa-solid ${achievement.icon}"></i>
+        </div>
+        <div>
+            <span class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider block">¡Nuevo Logro Desbloqueado!</span>
+            <h5 class="text-sm font-bold text-white">${achievement.name}</h5>
+            <p class="text-[11px] text-slate-300">${achievement.desc}</p>
+        </div>
+    `;
+    document.body.appendChild(toast);
+
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 40,
+            spread: 60,
+            origin: { y: 0.9, x: 0.9 }
+        });
+    }
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 400);
+    }, 5000);
+}
+
+
 // --- ELEMENTOS DEL DOM ---
 const welcomeScreen = document.getElementById("welcome-screen");
 const quizScreen = document.getElementById("quiz-screen");
@@ -92,7 +150,7 @@ function initQuiz(mode) {
     secondsElapsed = 0; // Reiniciar contador de tiempo
 
     if (activeMode === "practice") {
-        selectedPracticeTopic = practiceSubjectSelect.value; // <--- AGREGAR ESTA LÍNEA
+        selectedPracticeTopic = practiceSubjectSelect.value;
         const sub = selectedPracticeTopic;
         let filtered = [];
 
@@ -108,7 +166,7 @@ function initQuiz(mode) {
         currentQuestions = filtered;
         quizModeTitle.textContent = "Modo Práctica / Estudio";
         timerBox.classList.add("hidden");
-        startTimer(); // También contamos tiempo en práctica para reportarlo
+        startTimer();
 
     } else { // Modo Examen
         const examType = examTypeSelect.value;
@@ -185,11 +243,9 @@ function renderQuestion() {
 
         if (isReviewMode || (activeMode === "practice" && selectedOpt !== null)) {
             if (index === q.answer) {
-                // Opción Correcta (Verde oscuro neón)
                 optBtn.className = "w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-950/80 text-emerald-100 font-medium text-sm md:text-base flex items-center justify-between";
                 iconMarkup = `<span class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span>`;
             } else if (selectedOpt === index && selectedOpt !== q.answer) {
-                // Opción Incorrecta (Rojo oscuro neón)
                 optBtn.className = "w-full text-left p-4 rounded-xl border-2 border-rose-500 bg-rose-950/80 text-rose-100 text-sm md:text-base flex items-center justify-between";
                 iconMarkup = `<span class="w-7 h-7 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></span>`;
             }
@@ -289,7 +345,13 @@ function showResultsScreen() {
     const total = currentQuestions.length;
     const porcentaje = Math.round((correctCount / total) * 100);
 
-    // --- NUEVO: Efecto de Confeti Versión 2.0 ---
+    // --- DISPARAR LOGROS AUTOMÁTICOS ---
+    unlockAchievement('first_step'); // Logro por terminar cualquier sesión
+    if (porcentaje === 100) {
+        unlockAchievement('century'); // Logro por sacar 100% de aciertos
+    }
+
+    // --- Efecto de Confeti ---
     if (porcentaje >= 60 && typeof confetti === "function") {
         confetti({
             particleCount: 150,
@@ -297,7 +359,6 @@ function showResultsScreen() {
             origin: { y: 0.6 }
         });
 
-        // Un segundo disparo lateral para darle más dinamismo festivo
         setTimeout(() => {
             confetti({
                 particleCount: 80,
@@ -345,7 +406,6 @@ function showResultsScreen() {
     document.getElementById("recommendation-text").innerText =
         `Se recomienda repasar prioritariamente los temas de ${materiaBaja || "todas las materias"}.`;
 
-    // Identificar la modalidad exacta para enviar a Google Sheets
     let tipoModalidad = "";
 
     if (activeMode === "practice") {
