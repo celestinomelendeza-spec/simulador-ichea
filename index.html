@@ -17,6 +17,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
+        /* --- ESTILOS MODO OSCURO (Por defecto) --- */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #090d16;
@@ -25,6 +26,7 @@
                 radial-gradient(at 0% 0%, rgba(30, 27, 75, 0.3) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.4) 0px, transparent 50%);
             background-attachment: fixed;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         h1,
@@ -34,7 +36,6 @@
             font-family: 'Outfit', sans-serif;
         }
 
-        /* Header con efecto de brillo superior */
         .gradient-header {
             background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(16px);
@@ -42,7 +43,6 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
-        /* Tarjetas estilo Glassmorphism Pro con bordes de luz */
         .glass-card {
             background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
             backdrop-filter: blur(20px);
@@ -50,7 +50,6 @@
             box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        /* Tarjetas de Opciones Elegantes */
         .option-card {
             background-color: rgba(30, 41, 59, 0.6) !important;
             border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -73,7 +72,6 @@
             font-weight: 600;
         }
 
-        /* Inputs y Selectores Profesionales */
         select,
         input {
             background-color: rgba(15, 23, 42, 0.8) !important;
@@ -87,6 +85,59 @@
             border-color: #38bdf8 !important;
             box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2) !important;
             outline: none;
+        }
+
+        /* --- ESTILOS MODO CLARO (Se activan con la clase .light en <html>) --- */
+        html.light body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(224, 231, 255, 0.6) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(241, 245, 249, 0.8) 0px, transparent 50%);
+        }
+
+        html.light .gradient-header {
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        html.light .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+
+        html.light .option-card {
+            background-color: rgba(241, 245, 249, 0.8) !important;
+            border: 1px solid rgba(203, 213, 225, 0.8) !important;
+            color: #1e293b !important;
+        }
+
+        html.light .option-card:hover {
+            border-color: rgba(2, 132, 199, 0.5) !important;
+            background-color: rgba(255, 255, 255, 1) !important;
+            box-shadow: 0 8px 25px -5px rgba(2, 132, 199, 0.15);
+        }
+
+        html.light select,
+        html.light input {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border: 1px solid #cbd5e1 !important;
+        }
+
+        html.light header h1 {
+            color: #0f172a !important;
+        }
+
+        html.light .text-white {
+            color: #0f172a !important;
+        }
+
+        html.light .text-slate-300,
+        html.light .text-slate-400 {
+            color: #475569 !important;
         }
 
         /* Animaciones suaves */
@@ -112,7 +163,7 @@
 <body class="min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
 
     <!-- Header / Navbar -->
-    <header class="gradient-header text-white sticky top-0 z-50">
+    <header class="gradient-header sticky top-0 z-50">
         <div class="max-w-5xl mx-auto px-4 py-3.5 flex flex-wrap justify-between items-center gap-3">
             <div class="flex items-center space-x-3">
                 <div
@@ -128,10 +179,22 @@
                     <p class="text-[11px] text-slate-400 font-medium">Estudio Interactivo & Diagnóstico Oficial</p>
                 </div>
             </div>
-            <div id="user-badge"
-                class="hidden bg-slate-800/90 text-slate-200 border border-slate-700/80 px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm flex items-center gap-2">
-                <i class="fa-solid fa-circle-user text-amber-400 text-sm"></i>
-                <span id="user-badge-name" class="font-bold text-white">Estudiante</span>
+
+            <!-- Controles Superiores (Badge de Usuario y Botón de Tema) -->
+            <div class="flex items-center gap-2.5">
+                <!-- Botón de Cambio de Tema -->
+                <button id="theme-toggle-btn" type="button"
+                    class="w-10 h-10 rounded-full bg-slate-800/80 dark:bg-slate-800/80 hover:bg-slate-700 text-amber-400 border border-slate-700/80 flex items-center justify-center transition-all shadow-sm"
+                    title="Cambiar Modo Claro / Oscuro">
+                    <i id="theme-icon" class="fa-solid fa-sun text-sm"></i>
+                </button>
+
+                <!-- Badge de Estudiante -->
+                <div id="user-badge"
+                    class="hidden bg-slate-800/90 text-slate-200 border border-slate-700/80 px-4 py-1.5 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm flex items-center gap-2">
+                    <i class="fa-solid fa-circle-user text-amber-400 text-sm"></i>
+                    <span id="user-badge-name" class="font-bold text-white">Estudiante</span>
+                </div>
             </div>
         </div>
     </header>
@@ -161,6 +224,23 @@
                     Ingresa tu nombre para registrar tu progreso y selecciona el modo de estudio oficial que deseas
                     repasar hoy.
                 </p>
+            </div>
+
+            <!-- PANEL DE ESTADÍSTICAS DEL ESTUDIANTE -->
+            <div id="stats-dashboard"
+                class="hidden max-w-md mx-auto bg-slate-900/80 border border-slate-800 p-4 rounded-2xl grid grid-cols-3 gap-3 text-center shadow-inner relative z-10">
+                <div>
+                    <span class="block text-[10px] uppercase font-bold text-slate-400">Sesiones</span>
+                    <span id="stat-total-sessions" class="text-lg font-extrabold text-white">0</span>
+                </div>
+                <div class="border-x border-slate-800">
+                    <span class="block text-[10px] uppercase font-bold text-slate-400">Promedio</span>
+                    <span id="stat-avg-score" class="text-lg font-extrabold text-sky-400">0%</span>
+                </div>
+                <div>
+                    <span class="block text-[10px] uppercase font-bold text-slate-400">Mejor Nota</span>
+                    <span id="stat-best-score" class="text-lg font-extrabold text-emerald-400">0%</span>
+                </div>
             </div>
 
             <!-- Campo de Nombre -->
@@ -423,6 +503,35 @@
     <!-- CONEXIÓN DE ARCHIVOS SEPARADOS -->
     <script src="preguntas.js"></script>
     <script src="app.js"></script>
+
+    <!-- SCRIPT RÁPIDO PARA EL CAMBIO DE TEMA -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+
+        // Cargar preferencia guardada en localStorage
+        const savedTheme = localStorage.getItem('ichea_theme');
+        if (savedTheme === 'light') {
+            htmlElement.classList.remove('dark');
+            htmlElement.classList.add('light');
+            themeIcon.className = 'fa-solid fa-moon text-sm text-indigo-300';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                localStorage.setItem('ichea_theme', 'light');
+                themeIcon.className = 'fa-solid fa-moon text-sm text-indigo-300';
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                localStorage.setItem('ichea_theme', 'dark');
+                themeIcon.className = 'fa-solid fa-sun text-sm text-amber-400';
+            }
+        });
+    </script>
 </body>
 
 </html>
