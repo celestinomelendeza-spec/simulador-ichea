@@ -71,6 +71,40 @@ function showAchievementNotification(achievement) {
 }
 
 
+// --- SISTEMA DE ESTADÍSTICAS E HISTORIAL ---
+function getStudentStats() {
+    const saved = localStorage.getItem('ichea_student_stats');
+    return saved ? JSON.parse(saved) : { sessions: 0, totalPercentage: 0, bestScore: 0 };
+}
+
+function saveSessionStats(percentage) {
+    let stats = getStudentStats();
+    stats.sessions += 1;
+    stats.totalPercentage += percentage;
+    if (percentage > stats.bestScore) {
+        stats.bestScore = percentage;
+    }
+    localStorage.setItem('ichea_student_stats', JSON.stringify(stats));
+    updateStatsUI();
+}
+
+function updateStatsUI() {
+    const stats = getStudentStats();
+    const statsContainer = document.getElementById('stats-dashboard');
+    if (!statsContainer) return;
+
+    if (stats.sessions > 0) {
+        statsContainer.classList.remove('hidden');
+        document.getElementById('stat-total-sessions').textContent = stats.sessions;
+        const avg = Math.round(stats.totalPercentage / stats.sessions);
+        document.getElementById('stat-avg-score').textContent = `${avg}%`;
+        document.getElementById('stat-best-score').textContent = `${stats.bestScore}%`;
+    } else {
+        statsContainer.classList.add('hidden');
+    }
+}
+
+
 // --- ELEMENTOS DEL DOM ---
 const welcomeScreen = document.getElementById("welcome-screen");
 const quizScreen = document.getElementById("quiz-screen");
@@ -114,6 +148,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (savedName) {
         studentNameInput.value = savedName;
     }
+    updateStatsUI(); // Actualizar panel de estadísticas al cargar la app[cite: 7]
 });
 
 startPracticeBtn.addEventListener("click", () => initQuiz("practice"));
@@ -147,7 +182,7 @@ function initQuiz(mode) {
 
     activeMode = mode;
     isReviewMode = false;
-    secondsElapsed = 0; // Reiniciar contador de tiempo
+    secondsElapsed = 0; // Reiniciar contador de tiempo[cite: 7]
 
     if (activeMode === "practice") {
         selectedPracticeTopic = practiceSubjectSelect.value;
@@ -345,10 +380,11 @@ function showResultsScreen() {
     const total = currentQuestions.length;
     const porcentaje = Math.round((correctCount / total) * 100);
 
-    // --- DISPARAR LOGROS AUTOMÁTICOS ---
-    unlockAchievement('first_step'); // Logro por terminar cualquier sesión
+    // --- GUARDAR ESTADÍSTICAS Y DISPARAR LOGROS AUTOMÁTICOS ---
+    saveSessionStats(porcentaje);
+    unlockAchievement('first_step'); // Logro por terminar cualquier sesión[cite: 7]
     if (porcentaje === 100) {
-        unlockAchievement('century'); // Logro por sacar 100% de aciertos
+        unlockAchievement('century'); // Logro por sacar 100% de aciertos[cite: 7]
     }
 
     // --- Efecto de Confeti ---
@@ -480,4 +516,5 @@ function returnToHome() {
     quizScreen.classList.add("hidden");
     welcomeScreen.classList.remove("hidden");
     clearInterval(timerInterval);
+    updateStatsUI(); // Actualizar panel de estadísticas al regresar al menú[cite: 7]
 }
