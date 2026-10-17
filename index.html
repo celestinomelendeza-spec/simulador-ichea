@@ -10,21 +10,22 @@
     <title>Plataforma de Estudio ICHEA / INEA - Secundaria</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
+    <!-- Remix Icons (Iconos modernos, limpios y con diseño top) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter & Outfit -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap"
+    <!-- Google Fonts: Plus Jakarta Sans (Tipografía moderna, limpia y humana) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
-        /* --- ESTILOS MODO OSCURO (Por defecto) --- */
+        /* --- ESTILOS MODO OSCURO (Moderno y Humano) --- */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #090d16;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #070a14;
             color: #e2e8f0;
             background-image:
-                radial-gradient(at 0% 0%, rgba(30, 27, 75, 0.3) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.4) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(30, 27, 75, 0.35) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.5) 0px, transparent 50%);
             background-attachment: fixed;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
@@ -33,50 +34,51 @@
         h2,
         h3,
         .font-heading {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            letter-spacing: -0.02em;
         }
 
         .gradient-header {
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(11, 17, 32, 0.85);
             backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
         }
 
         .glass-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+            background: linear-gradient(135deg, rgba(26, 35, 56, 0.75) 0%, rgba(13, 19, 33, 0.85) 100%);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
         }
 
         .option-card {
-            background-color: rgba(30, 41, 59, 0.6) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            background-color: rgba(26, 35, 56, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.07) !important;
             color: #f1f5f9 !important;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .option-card:hover {
             transform: translateY(-2px);
-            border-color: rgba(56, 189, 248, 0.5) !important;
-            background-color: rgba(30, 41, 59, 0.9) !important;
+            border-color: rgba(56, 189, 248, 0.4) !important;
+            background-color: rgba(26, 35, 56, 0.95) !important;
             box-shadow: 0 8px 25px -5px rgba(56, 189, 248, 0.15);
         }
 
         .option-selected {
             border-color: #38bdf8 !important;
-            background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%) !important;
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
             color: #ffffff !important;
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.35) !important;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.3) !important;
             font-weight: 600;
         }
 
         select,
         input {
-            background-color: rgba(15, 23, 42, 0.8) !important;
+            background-color: rgba(13, 19, 33, 0.9) !important;
             color: #f8fafc !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
             transition: all 0.2s ease;
         }
 
@@ -87,44 +89,44 @@
             outline: none;
         }
 
-        /* --- ESTILOS MODO CLARO (Se activan con la clase .light en <html>) --- */
+        /* --- ESTILOS MODO CLARO (Gris Sólido y Elegante) --- */
         html.light body {
-            background-color: #f8fafc;
-            color: #1e293b;
+            background-color: #cbd5e1;
+            color: #0f172a;
             background-image:
-                radial-gradient(at 0% 0%, rgba(224, 231, 255, 0.6) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(241, 245, 249, 0.8) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(203, 213, 225, 0.9) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(148, 163, 184, 0.7) 0px, transparent 50%);
         }
 
         html.light .gradient-header {
-            background: rgba(255, 255, 255, 0.85);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            background: rgba(241, 245, 249, 0.95);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         html.light .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.95) 100%);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 1);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(226, 232, 240, 0.98) 100%);
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 1);
         }
 
         html.light .option-card {
-            background-color: rgba(241, 245, 249, 0.8) !important;
-            border: 1px solid rgba(203, 213, 225, 0.8) !important;
-            color: #1e293b !important;
+            background-color: rgba(241, 245, 249, 0.9) !important;
+            border: 1px solid rgba(148, 163, 184, 0.6) !important;
+            color: #0f172a !important;
         }
 
         html.light .option-card:hover {
-            border-color: rgba(2, 132, 199, 0.5) !important;
+            border-color: rgba(2, 132, 199, 0.8) !important;
             background-color: rgba(255, 255, 255, 1) !important;
-            box-shadow: 0 8px 25px -5px rgba(2, 132, 199, 0.15);
+            box-shadow: 0 8px 25px -5px rgba(2, 132, 199, 0.2);
         }
 
         html.light select,
         html.light input {
             background-color: #ffffff !important;
             color: #0f172a !important;
-            border: 1px solid #cbd5e1 !important;
+            border: 1px solid #94a3b8 !important;
         }
 
         html.light header h1 {
@@ -137,7 +139,7 @@
 
         html.light .text-slate-300,
         html.light .text-slate-400 {
-            color: #475569 !important;
+            color: #334155 !important;
         }
 
         /* Animaciones suaves */
@@ -157,6 +159,15 @@
                 transform: translateY(0);
             }
         }
+
+        #quiz-screen.hidden,
+        #results-screen.hidden {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+        }
     </style>
 </head>
 
@@ -167,8 +178,8 @@
         <div class="max-w-5xl mx-auto px-4 py-3.5 flex flex-wrap justify-between items-center gap-3">
             <div class="flex items-center space-x-3">
                 <div
-                    class="bg-gradient-to-tr from-indigo-600 to-sky-500 p-2.5 rounded-2xl shadow-lg shadow-indigo-500/20 border border-indigo-400/30">
-                    <i class="fa-solid fa-graduation-cap text-xl text-amber-300"></i>
+                    class="bg-gradient-to-tr from-sky-600 to-indigo-700 p-2.5 rounded-2xl shadow-lg shadow-sky-500/20 border border-sky-400/30 flex items-center justify-center w-11 h-11">
+                    <i class="fa-solid fa-building-columns text-xl text-amber-300"></i>
                 </div>
                 <div>
                     <h1 class="font-extrabold text-base md:text-lg tracking-tight text-white flex items-center gap-2">
@@ -180,8 +191,14 @@
                 </div>
             </div>
 
-            <!-- Controles Superiores (Badge de Usuario y Botón de Tema) -->
+            <!-- 🏆 BOTÓN DE TABLA DE LÍDERES -->
             <div class="flex items-center gap-2.5">
+                <button onclick="mostrarPantalla('leaderboard-screen'); cargarLeaderboard();" type="button"
+                    class="bg-amber-500/15 hover:bg-amber-500/25 text-amber-400 border border-amber-500/40 px-3.5 h-10 rounded-full font-semibold text-xs sm:text-sm transition flex items-center gap-2 shadow-sm"
+                    title="Ver Tabla de Líderes">
+                    <i class="fa-solid fa-trophy text-sm"></i>
+                    <span class="hidden sm:inline">Líderes</span>
+                </button>
                 <!-- Botón de Cambio de Tema -->
                 <button id="theme-toggle-btn" type="button"
                     class="w-10 h-10 rounded-full bg-slate-800/80 dark:bg-slate-800/80 hover:bg-slate-700 text-amber-400 border border-slate-700/80 flex items-center justify-center transition-all shadow-sm"
@@ -196,7 +213,6 @@
                     <span id="user-badge-name" class="font-bold text-white">Estudiante</span>
                 </div>
             </div>
-        </div>
     </header>
 
     <!-- Main Content Container -->
@@ -214,7 +230,7 @@
             <div class="text-center max-w-2xl mx-auto space-y-3 relative z-10">
                 <div
                     class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-tr from-sky-500 via-indigo-600 to-purple-600 text-white shadow-xl shadow-sky-500/20 mb-2 border border-white/10">
-                    <i class="fa-solid fa-rocket text-2xl text-amber-300"></i>
+                    <i class="fa-solid fa-shuttle-space text-2xl text-amber-300"></i>
                 </div>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
                     Prepara tu <span
@@ -358,22 +374,33 @@
 
             </div>
         </div>
-
-        <!-- SCREEN 2: Active Quiz Screen -->
-        <div id="quiz-screen" class="hidden space-y-6">
+        <!-- SCREEN 2: Active Quiz Screen (Todo bien encapsulado) -->
+        <div id="quiz-screen" class="hidden space-y-6" style="display: none;">
             <div class="glass-card rounded-2xl p-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="w-full">
-                    <div class="flex justify-between text-xs font-bold text-slate-400 mb-2">
-                        <span id="quiz-mode-title" class="uppercase tracking-wider text-sky-400">Modo Examen</span>
-                        <span id="progress-text" class="text-slate-200 font-semibold">Pregunta 1</span>
-                    </div>
-                    <div
-                        class="w-full bg-slate-900/80 rounded-full h-2.5 overflow-hidden p-0.5 border border-slate-800">
-                        <div id="progress-bar"
-                            class="bg-gradient-to-r from-sky-400 to-indigo-500 h-1.5 rounded-full transition-all duration-300 w-[5%] shadow-sm">
+
+                <!-- Botón de Salida (X) y Progreso -->
+                <div class="w-full flex items-center justify-between gap-4">
+                    <div class="space-y-1 flex-grow">
+                        <div class="flex justify-between text-xs font-bold text-slate-400 mb-2">
+                            <span id="quiz-mode-title" class="uppercase tracking-wider text-sky-400">Modo Examen</span>
+                            <span id="progress-text" class="text-slate-200 font-semibold">Pregunta 1</span>
+                        </div>
+                        <div
+                            class="w-full bg-slate-900/80 rounded-full h-2.5 overflow-hidden p-0.5 border border-slate-800">
+                            <div id="progress-bar"
+                                class="bg-gradient-to-r from-sky-400 to-indigo-500 h-1.5 rounded-full transition-all duration-300 w-[5%] shadow-sm">
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Botón para Salir / Abortar Lección -->
+                    <button id="exit-quiz-btn" type="button"
+                        class="w-10 h-10 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center transition-all shadow-sm shrink-0"
+                        title="Salir al Menú Principal">
+                        <i class="fa-solid fa-xmark text-base"></i>
+                    </button>
                 </div>
+
                 <div id="timer-box"
                     class="flex items-center justify-between w-full md:w-auto space-x-3 border-t md:border-t-0 pt-2 md:pt-0 border-slate-800">
                     <div
@@ -384,6 +411,7 @@
                 </div>
             </div>
 
+            <!-- Tarjeta de Preguntas -->
             <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 relative overflow-hidden">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-4">
                     <span id="question-subject"
@@ -430,9 +458,8 @@
                 </div>
             </div>
         </div>
-
         <!-- SCREEN 3: Results Dashboard -->
-        <div id="results-screen" class="hidden space-y-6">
+        <div id="results-screen" class="hidden space-y-6" style="display: none;">
             <div class="glass-card rounded-3xl p-6 md:p-10 text-center space-y-8 relative overflow-hidden">
 
                 <div
@@ -493,6 +520,40 @@
 
     </main>
 
+    <!-- VENTANA FLOTANTE DE LA TABLA DE LÍDERES -->
+    <div id="leaderboard-screen"
+        class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div
+            class="glass-card bg-[#111827] border border-slate-800 w-full max-w-2xl p-6 rounded-3xl shadow-2xl text-white">
+
+            <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
+                <h2 class="text-2xl font-bold text-amber-400 flex items-center gap-2">🏆 Clasificación Global</h2>
+                <button id="cerrar-lideres" onclick="cerrarLeaderboard()" type="button"
+                    class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3.5 py-1.5 rounded-xl font-semibold text-sm transition">
+                    ✕ Cerrar
+                </button>
+            </div>
+
+            <div class="overflow-x-auto max-h-[60vh]">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800/60 text-slate-400 text-xs uppercase tracking-wider">
+                            <th class="py-3 px-4 rounded-l-xl">#</th>
+                            <th class="py-3 px-4">Estudiante</th>
+                            <th class="py-3 px-4">Modo</th>
+                            <th class="py-3 px-4">Aciertos</th>
+                            <th class="py-3 px-4 rounded-r-xl">Calificación</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body" class="divide-y divide-slate-800/50 text-slate-300 text-sm">
+                        <tr>
+                            <td colspan="5" class="text-center py-6 text-slate-500">Cargando clasificación...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <footer
         class="bg-slate-950/90 border-t border-slate-900 py-4 text-center text-xs text-slate-500 font-medium backdrop-blur-md">
         <div class="max-w-4xl mx-auto px-4">
