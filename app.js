@@ -1,5 +1,27 @@
+// ==========================================
+// LÍNEA 1 DE APPS.JS (INICIO ABSOLUTO)
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+    const welcomeScreen = document.getElementById("welcome-screen");
+    const quizScreen = document.getElementById("quiz-screen");
+    const resultsScreen = document.getElementById("results-screen");
+
+    if (welcomeScreen) {
+        welcomeScreen.classList.remove("hidden");
+        welcomeScreen.style.display = "block";
+    }
+    if (quizScreen) {
+        quizScreen.classList.add("hidden");
+        quizScreen.style.display = "none"; // Forzar ocultamiento estricto
+    }
+    if (resultsScreen) {
+        resultsScreen.classList.add("hidden");
+        resultsScreen.style.display = "none"; // Forzar ocultamiento estricto
+    }
+});
+
 // --- CONFIGURACIÓN DE TU GOOGLE APPS SCRIPT ---
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9diCX3BR7DU-EEgnLzf2NLr-Zjo8j3hKTyvIPahKypvp9DPOvZZWGZol5UbdZGZzH/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9lvFYRwuNn3LfiDVkefY7P8_NxuUCUha7nlCgAVHGUKpBmvUC3hJKFbKHbQgORYYR/exec";
 
 // --- ESTADO DE LA APLICACIÓN ---
 let currentQuestions = [];
@@ -11,7 +33,6 @@ let activeMode = "exam"; // "practice" o "exam"
 let selectedPracticeTopic = "";
 let isReviewMode = false;
 let studentName = "";
-
 
 // --- SISTEMA DE LOGROS Y RACHAS (GAMIFICACIÓN) ---
 const availableAchievements = [
@@ -70,7 +91,6 @@ function showAchievementNotification(achievement) {
     }, 5000);
 }
 
-
 // --- SISTEMA DE ESTADÍSTICAS E HISTORIAL ---
 function getStudentStats() {
     const saved = localStorage.getItem('ichea_student_stats');
@@ -103,7 +123,6 @@ function updateStatsUI() {
         statsContainer.classList.add('hidden');
     }
 }
-
 
 // --- ELEMENTOS DEL DOM ---
 const welcomeScreen = document.getElementById("welcome-screen");
@@ -141,6 +160,7 @@ const prevBtn = document.getElementById("prev-btn");
 const nextBtn = document.getElementById("next-btn");
 const restartBtn = document.getElementById("restart-btn");
 const reviewBtn = document.getElementById("review-btn");
+const exitQuizBtn = document.getElementById("exit-quiz-btn");
 
 // --- INICIALIZACIÓN Y EVENTOS ---
 window.addEventListener("DOMContentLoaded", () => {
@@ -148,7 +168,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (savedName) {
         studentNameInput.value = savedName;
     }
-    updateStatsUI(); // Actualizar panel de estadísticas al cargar la app[cite: 7]
+    updateStatsUI();
 });
 
 startPracticeBtn.addEventListener("click", () => initQuiz("practice"));
@@ -161,8 +181,12 @@ reviewBtn.addEventListener("click", enterReviewMode);
 toggleHintBtn.addEventListener("click", () => {
     hintBox.classList.toggle("hidden");
 });
+exitQuizBtn.addEventListener("click", () => {
+    if (confirm("¿Estás seguro de que deseas salir? Tu progreso actual en esta lección se perderá.")) {
+        returnToHome();
+    }
+});
 
-// Función para mezclar arreglos al azar
 function shuffleArray(array) {
     const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -171,7 +195,6 @@ function shuffleArray(array) {
     }
     return arr;
 }
-
 function initQuiz(mode) {
     const inputVal = studentNameInput.value.trim();
     studentName = inputVal !== "" ? inputVal : "Estudiante";
@@ -182,7 +205,7 @@ function initQuiz(mode) {
 
     activeMode = mode;
     isReviewMode = false;
-    secondsElapsed = 0; // Reiniciar contador de tiempo[cite: 7]
+    secondsElapsed = 0;
 
     if (activeMode === "practice") {
         selectedPracticeTopic = practiceSubjectSelect.value;
@@ -203,7 +226,7 @@ function initQuiz(mode) {
         timerBox.classList.add("hidden");
         startTimer();
 
-    } else { // Modo Examen
+    } else {
         const examType = examTypeSelect.value;
         let filtered = [];
 
@@ -224,8 +247,13 @@ function initQuiz(mode) {
     userAnswers = new Array(currentQuestions.length).fill(null);
 
     welcomeScreen.classList.add("hidden");
+    welcomeScreen.style.display = "none";
+
     resultsScreen.classList.add("hidden");
+    resultsScreen.style.display = "none";
+
     quizScreen.classList.remove("hidden");
+    quizScreen.style.display = "block"; // Enciende todo el bloque del quiz limpiamente
 
     renderQuestion();
 }
@@ -353,10 +381,13 @@ function finishQuiz() {
     clearInterval(timerInterval);
     showResultsScreen();
 }
-
 function showResultsScreen() {
     quizScreen.classList.add("hidden");
+    quizScreen.style.display = "none";
+
+    // Asegurar que la pantalla de resultados se muestre por completo y sin restricciones
     resultsScreen.classList.remove("hidden");
+    resultsScreen.style.display = "block";
 
     document.getElementById("result-student-name").textContent = studentName;
 
@@ -380,14 +411,12 @@ function showResultsScreen() {
     const total = currentQuestions.length;
     const porcentaje = Math.round((correctCount / total) * 100);
 
-    // --- GUARDAR ESTADÍSTICAS Y DISPARAR LOGROS AUTOMÁTICOS ---
     saveSessionStats(porcentaje);
-    unlockAchievement('first_step'); // Logro por terminar cualquier sesión[cite: 7]
+    unlockAchievement('first_step');
     if (porcentaje === 100) {
-        unlockAchievement('century'); // Logro por sacar 100% de aciertos[cite: 7]
+        unlockAchievement('century');
     }
 
-    // --- Efecto de Confeti ---
     if (porcentaje >= 60 && typeof confetti === "function") {
         confetti({
             particleCount: 150,
@@ -513,8 +542,126 @@ function enterReviewMode() {
 
 function returnToHome() {
     resultsScreen.classList.add("hidden");
+    resultsScreen.style.display = "none";
+
     quizScreen.classList.add("hidden");
+    quizScreen.style.display = "none"; // Oculta todo el bloque del quiz por completo al salir
+
     welcomeScreen.classList.remove("hidden");
+    welcomeScreen.style.display = "block";
+
     clearInterval(timerInterval);
-    updateStatsUI(); // Actualizar panel de estadísticas al regresar al menú[cite: 7]
+    updateStatsUI();
+
+    questionText.textContent = "Cargando pregunta...";
+    questionSubject.textContent = "Matemáticas";
+}
+// --- SISTEMA DE LEADERBOARD GLOBAL (CORREGIDO Y AJUSTADO A TU HTML) ---
+const leaderboardScreen = document.getElementById("leaderboard-screen");
+const openLeaderboardBtn = document.getElementById("open-leaderboard-btn");
+const closeLeaderboardBtn = document.getElementById("close-leaderboard-btn");
+const leaderboardBody = document.getElementById("leaderboard-body");
+
+function cargarLeaderboard() {
+    if (welcomeScreen) {
+        welcomeScreen.classList.add("hidden");
+        welcomeScreen.style.display = "none";
+    }
+    if (leaderboardScreen) {
+        leaderboardScreen.classList.remove("hidden");
+        leaderboardScreen.style.display = "flex";
+    }
+    fetchGlobalLeaderboard();
+}
+
+if (openLeaderboardBtn) {
+    openLeaderboardBtn.addEventListener("click", () => {
+        cargarLeaderboard();
+    });
+}
+
+if (closeLeaderboardBtn) {
+    closeLeaderboardBtn.addEventListener("click", () => {
+        leaderboardScreen.classList.add("hidden");
+        leaderboardScreen.style.display = "none";
+        welcomeScreen.classList.remove("hidden");
+        welcomeScreen.style.display = "block";
+    });
+}
+
+function fetchGlobalLeaderboard() {
+    if (!leaderboardBody) return;
+
+    leaderboardBody.innerHTML = `
+        <tr>
+            <td colspan="5" class="text-center py-8 text-slate-400 text-sm">
+                <i class="fa-solid fa-spinner animate-spin mr-2 text-sky-400"></i> Sincronizando tabla de clasificación global...
+            </td>
+        </tr>
+    `;
+
+    fetch(SCRIPT_URL)
+        .then(res => res.json())
+        .then(data => {
+            if (!data || data.length === 0) {
+                leaderboardBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center py-8 text-slate-400 text-sm">
+                            <i class="fa-solid fa-info-circle mr-2 text-amber-400"></i> Aún no hay registros en la nube. ¡Sé el primero en completar un examen!
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            leaderboardBody.innerHTML = "";
+            data.forEach((item, index) => {
+                let medalla = index === 0 ? "🥇 " : index === 1 ? "🥈 " : index === 2 ? "🥉 " : `#${index + 1} `;
+
+                const row = document.createElement("tr");
+                row.className = "hover:bg-slate-800/40 transition border-b border-slate-800/50";
+                row.innerHTML = `
+                    <td class="py-3 px-4 font-bold text-amber-400">${medalla}</td>
+                    <td class="py-3 px-4 font-semibold text-white">
+                        ${item.name}
+                        <span class="block text-[10px] text-slate-500 font-normal">${item.date || ''}</span>
+                    </td>
+                    <td class="py-3 px-4 text-xs text-slate-400">${item.mode}</td>
+                    <td class="py-3 px-4 text-slate-300">${item.scoreText}</td>
+                    <td class="py-3 px-4 font-bold text-emerald-400">${item.percentage}%</td>
+                `;
+                leaderboardBody.appendChild(row);
+            });
+        })
+        .catch(err => {
+            console.error("Error al obtener la tabla de líderes:", err);
+            leaderboardBody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center py-8 text-rose-400 text-sm">
+                        <i class="fa-solid fa-triangle-exclamation mr-2"></i> No se pudo conectar con Google Sheets.
+                    </td>
+                </tr>
+            `;
+        });
+}
+
+function mostrarPantalla(id) {
+    if (id === 'leaderboard-screen') {
+        cargarLeaderboard();
+    } else {
+        cerrarLeaderboard();
+    }
+}
+function cerrarLeaderboard() {
+    const leaderboardScreen = document.getElementById("leaderboard-screen");
+    const welcomeScreen = document.getElementById("welcome-screen");
+
+    if (leaderboardScreen) {
+        leaderboardScreen.classList.add("hidden");
+        leaderboardScreen.style.display = "none";
+    }
+    if (welcomeScreen) {
+        welcomeScreen.classList.remove("hidden");
+        welcomeScreen.style.display = "block";
+    }
 }
